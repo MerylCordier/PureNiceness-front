@@ -1,39 +1,50 @@
-.album-container{
+.album-container {
   background-color: #51514f;
   box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.3);
   border-top-left-radius: 25px;
   width: 95%;
-  padding: 0.2rem;
-  
 }
-.button-album-container:hover{ 
-  transform: scale(1.2) ;
+.button-album-container:hover {
+  transform: scale(1.2);
   filter: drop-shadow(0 0.5rem 0.5rem var(--secondary-color));
   transition: 0.7s;
   border-radius: 15%;
 }
-.album-container__title{
+
+.button-album__image:focus {
+  filter: drop-shadow(0 0rem 0.5rem var(--secondary-color));
+  transform: scale(1.2);
+  margin-bottom: 0.5rem;
+}
+
+.button-album-container {
+  margin-top: 2rem;
+}
+
+.album-container__title {
   font-size: 1.3rem;
   font-weight: lighter;
   color: var(--secondary-color);
 }
 
+.button-album__name {
+  margin-top: 0.4rem;
+}
 
-.track-container{
-  display:flex;
+.track-container {
+  display: flex;
   justify-content: space-between;
   align-items: center;
   width: 12rem;
   margin: 0.4rem;
- 
 }
-.track-cover{
+.track-cover {
   width: 3rem;
 }
 
-.play-icon{
+.play-icon {
   color: var(--secondary-color);
 }
-.likes-icon{
+.likes-icon {
   color: var(--secondary-color);
 }
