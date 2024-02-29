@@ -66,9 +66,16 @@ function Album({ oneAlbumSongs, setOneAlbumSongs, albumId }) {
                     onClick={() => handleClickPlay(track)}
                   />
                 </div>
-                <div className="track-name">
-                  {track.name}
+
+                <div className="track-infos">
+                  <div className="track-name">
+                    {track.name}
+                  </div>
+                  <div className="track-year">
+                    {track.year}
+                  </div>
                 </div>
+
                 <div className="track-duration">
                   {formatDuration(track.duration)}
                 </div>
