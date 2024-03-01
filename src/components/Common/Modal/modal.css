@@ -74,6 +74,16 @@
   align-items: center;
 }
 
+.image-preview{
+  width: 6rem;
+  height: 6rem;
+  border:solid 1px black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
 .modal__body form {
   width: 100%;
   overflow-y: scroll;
