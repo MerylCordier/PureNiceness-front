@@ -11,7 +11,7 @@ function Favorites({ userId }) {
   // Fetch likes data from the API
   const fetchLikesData = async (id) => {
     const fetchedLikesData = await fetchData('GET', `users/${id}/likes`, null, true);
-    if(fetchedLikesData){
+    if (fetchedLikesData) {
       setLikesDetails(fetchedLikesData);
     }
   };
