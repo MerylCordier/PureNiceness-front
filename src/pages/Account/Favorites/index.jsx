@@ -11,7 +11,7 @@ function Favorites({ userId }) {
   // Fetch likes data from the API
   const fetchLikesData = async (id) => {
     const fetchedLikesData = await fetchData('GET', `users/${id}/likes`, null, true);
-    if(fetchedLikesData){
+    if (fetchedLikesData) {
       setLikesDetails(fetchedLikesData);
     }
   };
@@ -22,15 +22,15 @@ function Favorites({ userId }) {
 
   return (
     <div className="account-likes">
-      <div className="tracks-list">
+      <div className="tracks-containeur">
         {likesDetails && likesDetails.map((track) => (
-          <div key={track.name}>
+          <div className="tracks-list" key={track.name}>
             <p>
-              Titre de la piste :
+              <span>Titre de la piste :</span>
               {track.name}
-              Album :
+              <span>Album :</span>
               {track.album_name}
-              Année :
+              <span>Année :</span>
               {track.album_year}
               <FontAwesomeIcon icon={faTrashCan} />
             </p>
