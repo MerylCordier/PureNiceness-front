@@ -16,35 +16,35 @@ function Infos({ accountDetails }) {
       <h2 id="informations">Informations personnelles</h2>
       <div className="account">
         <p className="account-details">
-          Email :
+          <span>Email :</span>
           {localAccountDetails.email}
         </p>
         <p className="account-details">
-          Prénom :
+          <span>Prénom :</span>
           {localAccountDetails.firstname}
         </p>
         <p className="account-details">
-          Nom :
+          <span>Nom :</span>
           {localAccountDetails.lastname}
         </p>
         <p className="account-details">
-          Date de naissance :
+          <span>Date de naissance :</span>
           {localAccountDetails.birthdate}
         </p>
         <p className="account-details">
-          Adresse :
+          <span>Adresse :</span>
           {localAccountDetails.address}
         </p>
         <p className="account-details">
-          Code postal :
+          <span>Code postal :</span>
           {localAccountDetails.zipcode}
         </p>
         <p className="account-details">
-          Ville :
+          <span>Ville :</span>
           {localAccountDetails.city}
         </p>
         <p className="account-details">
-          Pays :
+          <span>Pays :</span>
           {localAccountDetails.country}
         </p>
       </div>
