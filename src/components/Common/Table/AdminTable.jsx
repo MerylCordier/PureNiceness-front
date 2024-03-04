@@ -2,11 +2,14 @@
 
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashCan, faPen, faPeopleGroup } from '@fortawesome/free-solid-svg-icons';
+import {
+  faTrashCan, faPen, faPeopleGroup, faCompactDisc,
+} from '@fortawesome/free-solid-svg-icons';
 import styles from './AdminTable.module.css';
 import DeleteModal from '../Modal/Delete';
 import fetchData from '../../../services/api/call.api';
 import AddModal from '../Modal/Add';
+import AlbumModal from '../Modal/AlbumModal';
 
 function AdminTable({
   filteredDatas, handleDataDelete, handleOpenUpdateModal, route,
@@ -14,6 +17,7 @@ function AdminTable({
   const [selectedRow, setSelectedRow] = useState(null);
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
   const [isAddModalVisible, setIsAddModalVisible] = useState(false);
+  const [albumModalVisible, setAlbumModalVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 
   const deleteElement = async () => {
@@ -30,8 +34,18 @@ function AdminTable({
     setSelectedItem(item);
   };
 
+  const handleOpenAlbumModal = (item) => {
+    setAlbumModalVisible(true);
+    setSelectedItem(item);
+  };
+
   const handleCloseAddModal = () => {
     setIsAddModalVisible(false);
+    setSelectedItem(null);
+  };
+
+  const handleCloseAlbumModal = () => {
+    setAlbumModalVisible(false);
     setSelectedItem(null);
   };
 
@@ -70,6 +84,11 @@ function AdminTable({
                     Artistes
                   </th>
                 ) : null}
+                {route === 'admin/labels' ? (
+                  <th className="has-text-centered has-text-white">
+                    Albums
+                  </th>
+                ) : null}
                 <th className="has-text-centered has-text-white">Modifier</th>
                 <th className="has-text-centered has-text-white">Supprimer</th>
               </tr>
@@ -97,6 +116,20 @@ function AdminTable({
                       </button>
                     </td>
                   ) : null}
+
+                  {route === 'admin/labels' ? (
+                    <td>
+                      <button
+                        className="is-danger"
+                        type="button"
+                        onClick={() => handleOpenAlbumModal(data)}
+                        aria-label="add"
+                      >
+                        <FontAwesomeIcon icon={faCompactDisc} />
+                      </button>
+                    </td>
+                  ) : null}
+
                   <td>
 
                     <button
@@ -134,6 +167,13 @@ function AdminTable({
         && (
         <AddModal
           handleClose={handleCloseAddModal}
+          item={selectedItem}
+        />
+        )}
+        {albumModalVisible
+        && (
+        <AlbumModal
+          handleClose={handleCloseAlbumModal}
           item={selectedItem}
         />
         )}
