@@ -1,26 +1,45 @@
 .tracks-containeur {
   display: flex;
-  flex-wrap: wrap;
   flex-direction: column;
+  margin: 0.5rem auto;
   width: 100%;
-  max-width: 500px;
+  max-width: 400px;
 }
 
 .tracks-list {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0.5rem auto;
+  width: 100%;
+  padding: 0.5rem;
   border: 4px solid #9e8a58;
   border-radius: 20px;
+  padding: 1rem 1rem;
+  font-size: 1.1rem;
 }
 
 .tracks-list p {
   display: flex;
   flex-direction: column;
-  justify-content: left;
-  margin: 0.5rem;
   font-size: 1.1rem;
   width: 100%;
+  text-align: end;
+  margin: 0rem 0rem 1.5rem 0rem;
 }
 
 .tracks-list p span {
-  display: flex;
+  text-align: start;
   font-weight: bold;
+  padding: 1rem;
+  margin: 0 0.5rem 0 0;
+}
+
+.trash-can {
+  position: absolute;
+  top: 83%;
+  right: 0%;
+  padding: 1rem;
+  cursor: pointer;
+  color: #9e8a58;
 }
