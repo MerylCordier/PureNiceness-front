@@ -88,7 +88,6 @@ function AlbumModal({
                   key={album.id}
                   index={index}
                   album={album}
-                  handleDrop={handleDrop}
                 />
               ))}
             </div>
