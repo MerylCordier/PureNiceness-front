@@ -259,7 +259,8 @@
 }
 
 .tracks-artists-list,
-.labels-albums-list {
+.labels-albums-list,
+.albums-tracks-list {
   width: 100%;
   max-height: 18rem;
   overflow-y: scroll;
@@ -274,12 +275,14 @@
 }
 
 .tracks-artists-list::-webkit-scrollbar,
-.labels-albums-list::-webkit-scrollbar {
+.labels-albums-list::-webkit-scrollbar,
+.albums-tracks-list::-webkit-scrollbar {
   width: 0.6rem;
 } 
 
 .tracks-artists-list::-webkit-scrollbar-thumb,
-.labels-albums-list::-webkit-scrollbar-thumb {
+.labels-albums-list::-webkit-scrollbar-thumb,
+.albums-tracks-list::-webkit-scrollbar-thumb {
   background: rgb(43, 43, 43);
   border-radius: 10px;
 }
@@ -299,6 +302,34 @@
   border: solid 3px black;
 }
 
+.albums-track-card {
+  width:100%;
+  height: 4.5rem;
+  display:flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem;
+  color:white;
+  border:solid 2px white;
+}
+
+.albums-track-card span {
+  width:3rem;
+  font-size:1.5rem;
+}
+
+.albums-track-card img {
+  width:4rem;
+  height: 4rem;
+}
+
+.albums-track-card h3{
+  font-size:1.3rem;
+  font-weight:600;
+  padding:0 1rem;
+  width:100%;
+}
+
 .tracks-artist-card .close {
   top: 0;
   right: 0.2rem;
@@ -310,7 +341,8 @@
   opacity: 0.7;
 }
 
-.tracks-artist-card:hover {
+.tracks-artist-card:hover,
+.albums-track-card:hover {
   cursor: grabbing;
 }
 
