@@ -4,12 +4,12 @@ import './modal.css';
 import Sortable from 'sortablejs';
 import { toast } from 'react-toastify';
 import fetchData from '../../../services/api/call.api';
-import Album from '../../../pages/Admin/Label/Album';
+import Track from '../../../pages/Admin/Album/Track';
 
-function AlbumModal({
+function TrackModal({
   handleClose, item,
 }) {
-  const [allAlbums, setAllAlbums] = useState([]);
+  const [allTracks, setAllTracks] = useState([]);
   const listRef = useRef(null);
 
   const handleModalClick = (event) => {
@@ -19,17 +19,17 @@ function AlbumModal({
   };
 
   const handleDrop = async (dropIndex, dragIndex) => {
-    const updatedAlbums = [...allAlbums];
-    const draggedAlbum = updatedAlbums[dragIndex];
-    updatedAlbums.splice(dragIndex, 1);
-    updatedAlbums.splice(dropIndex, 0, draggedAlbum);
-    setAllAlbums(updatedAlbums);
-    const orders = updatedAlbums.map((album) => ({ id: album.id }));
+    const updatedTracks = [...allTracks];
+    const draggedTrack = updatedTracks[dragIndex];
+    updatedTracks.splice(dragIndex, 1);
+    updatedTracks.splice(dropIndex, 0, draggedTrack);
+    setAllTracks(updatedTracks);
+    const orders = updatedTracks.map((track) => ({ id: track.id }));
     try {
       const token = localStorage.getItem('authApiToken');
       if (token) {
         const apiUrl = import.meta.env.VITE_API_URL;
-        const response = await fetch(`${apiUrl}/admin/labels/${item.id}/albums/orders`, {
+        const response = await fetch(`${apiUrl}/admin/albums/${item.id}/tracks/orders`, {
           method: 'PATCH',
           headers: {
             Authorization: `Bearer ${token}`,
@@ -45,18 +45,18 @@ function AlbumModal({
     }
   };
 
-  const fetchLabelWithAlbums = async () => {
-    const label = await fetchData('GET', `labels/${item.id}/albums`);
-    setAllAlbums(label[0].albums);
+  const fetchLabelWithTracks = async () => {
+    const album = await fetchData('GET', `albums/${item.id}/tracks`);
+    setAllTracks(album[0].tracks);
   };
 
   useEffect(() => {
-    fetchLabelWithAlbums();
+    fetchLabelWithTracks();
   }, []);
 
   useEffect(() => {
     const sortableList = Sortable.create(listRef.current, {
-      group: 'albums',
+      group: 'tracks',
       animation: 150,
       onEnd(event) {
         handleDrop(event.newIndex, event.oldIndex);
@@ -66,7 +66,7 @@ function AlbumModal({
     return () => {
       sortableList.destroy();
     };
-  }, [allAlbums]);
+  }, [allTracks]);
 
   return (
     <div className="modal" aria-label="Add modal" onClick={handleModalClick}>
@@ -79,15 +79,15 @@ function AlbumModal({
         >
           &times;
         </button>
-        <h2 className="modal__title">ALBUMS</h2>
+        <h2 className="modal__title">SONS</h2>
         <div className="modal__body">
-          <div className="albums-container">
-            <div className="labels-albums-list" ref={listRef}>
-              {allAlbums?.length && allAlbums.map((album, index) => (
-                <Album
-                  key={album.id}
+          <div className="tracks-container">
+            <div className="albums-tracks-list" ref={listRef}>
+              {allTracks?.length && allTracks.map((track, index) => (
+                <Track
+                  key={track.id}
                   index={index}
-                  album={album}
+                  track={track}
                 />
               ))}
             </div>
@@ -108,4 +108,4 @@ function AlbumModal({
   );
 }
 
-export default AlbumModal;
+export default TrackModal;
