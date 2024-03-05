@@ -3,13 +3,14 @@
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faTrashCan, faPen, faPeopleGroup, faCompactDisc,
+  faTrashCan, faPen, faPeopleGroup, faCompactDisc, faMusic,
 } from '@fortawesome/free-solid-svg-icons';
 import styles from './AdminTable.module.css';
 import DeleteModal from '../Modal/Delete';
 import fetchData from '../../../services/api/call.api';
 import AddModal from '../Modal/Add';
 import AlbumModal from '../Modal/AlbumModal';
+import TrackModal from '../Modal/TrackModal';
 
 function AdminTable({
   filteredDatas, handleDataDelete, handleOpenUpdateModal, route,
@@ -18,6 +19,7 @@ function AdminTable({
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
   const [isAddModalVisible, setIsAddModalVisible] = useState(false);
   const [albumModalVisible, setAlbumModalVisible] = useState(false);
+  const [trackModalVisible, setTrackModalVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 
   const deleteElement = async () => {
@@ -34,18 +36,26 @@ function AdminTable({
     setSelectedItem(item);
   };
 
-  const handleOpenAlbumModal = (item) => {
-    setAlbumModalVisible(true);
-    setSelectedItem(item);
-  };
-
   const handleCloseAddModal = () => {
     setIsAddModalVisible(false);
     setSelectedItem(null);
   };
 
+  const handleOpenAlbumModal = (item) => {
+    setAlbumModalVisible(true);
+    setSelectedItem(item);
+  };
   const handleCloseAlbumModal = () => {
     setAlbumModalVisible(false);
+    setSelectedItem(null);
+  };
+
+  const handleOpenTrackModal = (item) => {
+    setTrackModalVisible(true);
+    setSelectedItem(item);
+  };
+  const handleCloseTrackModal = () => {
+    setTrackModalVisible(false);
     setSelectedItem(null);
   };
 
@@ -89,6 +99,11 @@ function AdminTable({
                     Albums
                   </th>
                 ) : null}
+                {route === 'admin/albums' ? (
+                  <th className="has-text-centered has-text-white">
+                    Sons
+                  </th>
+                ) : null}
                 <th className="has-text-centered has-text-white">Modifier</th>
                 <th className="has-text-centered has-text-white">Supprimer</th>
               </tr>
@@ -126,6 +141,19 @@ function AdminTable({
                         aria-label="add"
                       >
                         <FontAwesomeIcon icon={faCompactDisc} />
+                      </button>
+                    </td>
+                  ) : null}
+
+                  {route === 'admin/albums' ? (
+                    <td>
+                      <button
+                        className="is-danger"
+                        type="button"
+                        onClick={() => handleOpenTrackModal(data)}
+                        aria-label="add"
+                      >
+                        <FontAwesomeIcon icon={faMusic} />
                       </button>
                     </td>
                   ) : null}
@@ -174,6 +202,13 @@ function AdminTable({
         && (
         <AlbumModal
           handleClose={handleCloseAlbumModal}
+          item={selectedItem}
+        />
+        )}
+        {trackModalVisible
+        && (
+        <TrackModal
+          handleClose={handleCloseTrackModal}
           item={selectedItem}
         />
         )}
