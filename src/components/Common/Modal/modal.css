@@ -55,6 +55,16 @@
   border: 5px solid #a70303;
 }
 
+.modal-style-delete-user {
+  background-color: var(--secondary-color);
+  border: 5px solid black;
+}
+
+.modal-style-delete-user .modal__body {
+  background-color: var(--background-color);
+  color:white;
+}
+
 .modal-style-add {
   background-color: rgb(63, 63, 63);
   border: 5px solid black;

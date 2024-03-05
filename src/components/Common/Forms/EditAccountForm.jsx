@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShare } from '@fortawesome/free-solid-svg-icons';
+import { toast } from 'react-toastify';
 import fetchData from '../../../services/api/call.api';
 
 function EditAccountForm({
@@ -27,12 +28,13 @@ function EditAccountForm({
       const responseData = await fetchData('PATCH', `users/${userId}`, updatedData, true);
       if (responseData) {
         setAccountDetails(responseData[0]);
+        toast.success('Votre compte a été mis à jour avec succès !');
         // closing modal here
         handleClose();
       }
     } catch (error) {
       console.error('Erreur lors de la mise à jour des informations du compte :', error);
-      console.log('Une erreur est survenue lors de la mise à jour des informations du compte. Veuillez réessayer.');
+      toast.error('Une erreur est survenue lors de la mise à jour des informations du compte. Veuillez réessayer.');
     }
   };
 

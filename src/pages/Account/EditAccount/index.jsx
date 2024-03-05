@@ -9,15 +9,9 @@ function EditAccount({
   accountDetails, setAccountDetails, userId, handleClose,
 }) {
   const [modalTitle] = useState('METTRE A JOUR LE COMPTE');
+
   // apply specific css to the modal
   const [modalMode] = useState('update-user');
-  // Function to handle keyboard events
-  // const handleKeyDown = (e) => {
-  //   if (e.key === 'Enter' || e.key === ' ') {
-  //     handleOpenModal();
-  //   }
-  // };
-  // pas de rerender si la modal a déjà été ouverte puis fermée
 
   // if no userId or userId = main administrator, don't show the edit-account div
   if ((!userId) || parseInt(userId, 10) === 1) {
