@@ -8,7 +8,7 @@ import EditAccountForm from '../../../components/Common/Forms/EditAccountForm';
 function EditAccount({
   accountDetails, setAccountDetails, userId, handleClose,
 }) {
-  const [modalTitle] = useState('METTRE A JOUR LE COMPTE');
+  const [modalTitle] = useState('Mise à jour');
 
   // apply specific css to the modal
   const [modalMode] = useState('update-user');
