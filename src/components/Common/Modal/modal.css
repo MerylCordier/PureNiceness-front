@@ -32,6 +32,16 @@
   border: 5px solid #0329a7;
 }
 
+.modal-style-update-user {
+  background-color: var(--secondary-color);
+  border: 5px solid black;
+}
+
+.modal-style-update-user .modal__body {
+  background-color: var(--background-color);
+  color:white;
+}
+
 /* .modal .modal-style-update label {
   color: blue !important;
 }
