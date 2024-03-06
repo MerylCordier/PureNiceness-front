@@ -11,7 +11,6 @@ import 'react-h5-audio-player/lib/styles.css';
 
 function Album({ oneAlbumSongs, setOneAlbumSongs }) {
   const [trackData, setTrackData] = useState(null);
-
   const [nextTrackIndex, setNextTrackIndex] = useState(0);
 
   const handleClickPlay = async (track, index) => {
@@ -30,7 +29,7 @@ function Album({ oneAlbumSongs, setOneAlbumSongs }) {
 
       setTrackData(audioUrl);
 
-      const nextIndex = index < oneAlbumSongs[0].tracks.length ? index + 1 : 0;
+      const nextIndex = index < oneAlbumSongs[0].tracks.length - 1 ? index + 1 : 0;
 
       setNextTrackIndex(nextIndex);
     } catch (error) {
