@@ -82,7 +82,7 @@ function Label({ labelsWhithAlbums }) {
           <Album
             oneAlbumSongs={oneAlbumSongs}
             setOneAlbumSongs={setOneAlbumSongs}
-            albumId={albumId}
+
           />
         </div>
       </div>

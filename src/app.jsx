@@ -6,6 +6,7 @@ import { ToastContainer } from 'react-toastify';
 import { useEffect } from 'react';
 import Header from './components/Layout/Header';
 import Footer from './components/Layout/Footer';
+import PlayerProvider from './context/playerContext';
 
 function App() {
   const location = useLocation();
@@ -17,9 +18,11 @@ function App() {
     <div className="app">
       <ToastContainer autoClose={1800} theme="dark" />
       <Header />
-      <main>
-        <Outlet />
-      </main>
+      <PlayerProvider>
+        <main>
+          <Outlet />
+        </main>
+      </PlayerProvider>
       <Footer />
 
     </div>

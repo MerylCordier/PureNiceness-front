@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import './index.css';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faStar as solidStar } from '@fortawesome/free-solid-svg-icons';
@@ -8,12 +8,16 @@ import { faStar as regularStar } from '@fortawesome/free-regular-svg-icons';
 import AudioPlayer from 'react-h5-audio-player';
 import fetchData from '../../../../services/api/call.api';
 import 'react-h5-audio-player/lib/styles.css';
+import { PlayerContext } from '../../../../context/playerContext';
 
 function Album({ oneAlbumSongs, setOneAlbumSongs }) {
+  const { isPlaying, setIsPlaying } = useContext(PlayerContext);
   const [trackData, setTrackData] = useState(null);
   const [nextTrackIndex, setNextTrackIndex] = useState(0);
 
   const handleClickPlay = async (track, index) => {
+    setIsPlaying(true);
+    console.log(isPlaying);
     const apiUrl = import.meta.env.VITE_API_URL;
 
     try {

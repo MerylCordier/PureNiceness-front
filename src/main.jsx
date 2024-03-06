@@ -10,8 +10,10 @@ import UserProvider from './context/userContext';
 // RouterProvider permet à react-router-dom de checker les routes de notre application
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+
     <UserProvider>
       <RouterProvider router={router} />
     </UserProvider>
+
   </React.StrictMode>,
 );
