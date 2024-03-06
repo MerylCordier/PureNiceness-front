@@ -9,7 +9,7 @@ import DeleteModal from '../../../components/Common/Modal/Delete';
 function DeleteAccount({ userId }) {
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
 
-  // if no userId or userId = main administrator, don't show the delete-account div
+  // if no userId or userId = main administrator, don't show the delete account modal
   if ((!userId) || parseInt(userId, 10) === 1) {
     return null;
   }

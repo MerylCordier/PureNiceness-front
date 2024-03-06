@@ -13,8 +13,8 @@ function EditAccount({
   // apply specific css to the modal
   const [modalMode] = useState('update-user');
 
-  // if no userId or userId = main administrator, don't show the edit-account div
-  if ((!userId) || parseInt(userId, 10) === 1) {
+  // if no userId, don't show the edit account modal
+  if (!userId) {
     return null;
   }
 
