@@ -29,7 +29,7 @@
   padding:0.2rem;
 }
 
-.button-album-container {
+.list__album-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -41,7 +41,7 @@
   max-width: 6rem;
 }
 
-.button-album__image {
+.list__album-image {
   width: 4rem;
   height: 4rem;
 }
@@ -109,7 +109,7 @@
     background: transparent;
   }
 
-  .button-album-container::-webkit-scrollbar-thumb {
+  .list__album-container::-webkit-scrollbar-thumb {
     background: var(--secondary-color);
     border-radius: 10px;
   }

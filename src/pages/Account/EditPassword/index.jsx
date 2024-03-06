@@ -1,14 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/no-unescaped-entities */
-import './index.css';
+// import './index.css';
 import { useState } from 'react';
 import CrudModal from '../../../components/Common/Modal/CrudModal';
-import EditAccountForm from '../../../components/Common/Forms/EditAccountForm';
+import EditPasswordForm from '../../../components/Common/Forms/EditPasswordForm';
 
-function EditAccount({
-  accountDetails, setAccountDetails, userId, handleClose,
+function EditPassword({
+  userId, handleClose, setPasswordEdit,
 }) {
-  const [modalTitle] = useState('Mise à jour');
+  const [modalTitle] = useState('Mot de passe');
 
   // apply specific css to the modal
   const [modalMode] = useState('update-user');
@@ -20,13 +20,12 @@ function EditAccount({
 
   return (
     <CrudModal handleClose={handleClose} title={modalTitle} mode={modalMode}>
-      <EditAccountForm
-        accountDetails={accountDetails}
-        setAccountDetails={setAccountDetails}
+      <EditPasswordForm
         userId={userId}
+        setPasswordEdit={setPasswordEdit}
       />
     </CrudModal>
   );
 }
 
-export default EditAccount;
+export default EditPassword;

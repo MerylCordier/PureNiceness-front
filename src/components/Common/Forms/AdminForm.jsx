@@ -59,6 +59,7 @@ function AdminForm({
       ...formData,
       [id]: event.target.files[0],
     });
+    document.querySelector('.image-preview').src = URL.createObjectURL(event.target.files[0]);
   };
 
   const handleSubmit = async (event) => {

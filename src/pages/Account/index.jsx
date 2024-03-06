@@ -2,7 +2,9 @@
 import './index.css';
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faReply, faUser, faStar } from '@fortawesome/free-solid-svg-icons';
+import {
+  faReply, faUser, faStar, faUserPen,
+} from '@fortawesome/free-solid-svg-icons';
 import { jwtDecode } from 'jwt-decode';
 import { useState, useEffect } from 'react';
 import fetchData from '../../services/api/call.api';
@@ -10,12 +12,26 @@ import Infos from './Infos';
 import Favorites from './Favorites';
 import DeleteAccount from './DeleteAccount';
 import EditAccount from './EditAccount';
+import EditPassword from './EditPassword';
 
 function Account() {
   const token = localStorage.getItem('authApiToken');
   const decodedToken = jwtDecode(token);
   const { userId } = decodedToken;
   const [accountDetails, setAccountDetails] = useState([]);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [passwordEdit, setPasswordEdit] = useState(false);
+
+  // function to open a form modal to edit account
+  const handleOpenModal = () => {
+    setIsModalVisible(true);
+  };
+
+  // function to close a form modal to edit account
+  const handleClose = () => {
+    setIsModalVisible(false);
+    setPasswordEdit(false);
+  };
 
   const fetchAccountData = async (id) => {
     const fetchedData = await fetchData('GET', `users/${id}`, null, true);
@@ -26,8 +42,6 @@ function Account() {
   useEffect(() => {
     fetchAccountData(userId);
   }, [userId]);
-
-  // console.log(accountDetails.birthdate);
 
   return (
     <div className="profil">
@@ -53,11 +67,33 @@ function Account() {
         <Infos
           accountDetails={accountDetails}
         />
-        <EditAccount
-          accountDetails={accountDetails}
-          setAccountDetails={setAccountDetails}
-          userId={userId}
-        />
+        <div onClick={handleOpenModal}>
+          <FontAwesomeIcon className="icon-gretter-size" icon={faUserPen} />
+          <span className="edit-account-text">Modifier le compte</span>
+        </div>
+        <div onClick={() => { setPasswordEdit(true); handleOpenModal(); }}>
+          <FontAwesomeIcon className="icon-gretter-size" icon={faUserPen} />
+          <span className="edit-account-text">Modifier le mot de passe</span>
+        </div>
+
+        {isModalVisible && (
+          passwordEdit ? (
+            <EditPassword
+              userId={userId}
+              handleClose={handleClose}
+              handleOpenModal={handleOpenModal}
+              setPasswordEdit={setPasswordEdit}
+            />
+          ) : (
+            <EditAccount
+              accountDetails={accountDetails}
+              setAccountDetails={setAccountDetails}
+              userId={userId}
+              handleClose={handleClose}
+              handleOpenModal={handleOpenModal}
+            />
+          )
+        )}
       </div>
       <div className="favorite-icon">
         <h2 id="favorites">Favoris</h2>

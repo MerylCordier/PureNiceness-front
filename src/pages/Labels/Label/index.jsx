@@ -64,18 +64,17 @@ function Label({ labelsWhithAlbums }) {
           {/* Displaying albums for the label */}
           <div className="label-albums">
             {label.albums?.map((album) => (
-              <div className="button-album-container" key={album.id}>
-                {/* Button to select an album */}
-                {/* {A remplacer par une image clickable} */}
-                <button
-                  className="button-album__image"
-                  type="button"
-                  style={{ backgroundImage: `url(${album.url_image})` }}
-                  aria-label={album.name}
+              <div className="list__album-container" key={album.id}>
+                <img
+                  className="list__album-image"
+                  src={album.url_image}
+                  alt={`Selectionner l'album ${album.name}`}
+                  role="button"
+                  tabIndex={0}
                   onClick={() => handleClick(album.id)}
                 />
                 {/* Displaying the album name */}
-                <div className="button-album__name">{album.name}</div>
+                <div className="list__album-name">{album.name}</div>
               </div>
             ))}
           </div>

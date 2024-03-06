@@ -47,7 +47,7 @@ function Singup() {
       if (response === null || response.error) {
         throw new Error('Une erreur s\'est produite !');
       }
-      toast.success('Inscription réussi !');
+      toast.success('Inscription réussie !');
       setFormUserData({ ...initialFormUserData });
 
       setTimeout(() => {
