@@ -12,6 +12,7 @@ import Infos from './Infos';
 import Favorites from './Favorites';
 import DeleteAccount from './DeleteAccount';
 import EditAccount from './EditAccount';
+import EditPassword from './EditPassword';
 
 function Account() {
   const token = localStorage.getItem('authApiToken');
@@ -19,6 +20,7 @@ function Account() {
   const { userId } = decodedToken;
   const [accountDetails, setAccountDetails] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [passwordEdit, setPasswordEdit] = useState(false);
 
   // function to open a form modal to edit account
   const handleOpenModal = () => {
@@ -28,6 +30,7 @@ function Account() {
   // function to close a form modal to edit account
   const handleClose = () => {
     setIsModalVisible(false);
+    setPasswordEdit(false);
   };
 
   const fetchAccountData = async (id) => {
@@ -68,15 +71,28 @@ function Account() {
           <FontAwesomeIcon className="icon-gretter-size" icon={faUserPen} />
           <span className="edit-account-text">Modifier le compte</span>
         </div>
+        <div onClick={() => { setPasswordEdit(true); handleOpenModal(); }}>
+          <FontAwesomeIcon className="icon-gretter-size" icon={faUserPen} />
+          <span className="edit-account-text">Modifier le mot de passe</span>
+        </div>
 
-        { isModalVisible && (
-        <EditAccount
-          accountDetails={accountDetails}
-          setAccountDetails={setAccountDetails}
-          userId={userId}
-          handleClose={handleClose}
-          handleOpenModal={handleOpenModal}
-        />
+        {isModalVisible && (
+          passwordEdit ? (
+            <EditPassword
+              userId={userId}
+              handleClose={handleClose}
+              handleOpenModal={handleOpenModal}
+              setPasswordEdit={setPasswordEdit}
+            />
+          ) : (
+            <EditAccount
+              accountDetails={accountDetails}
+              setAccountDetails={setAccountDetails}
+              userId={userId}
+              handleClose={handleClose}
+              handleOpenModal={handleOpenModal}
+            />
+          )
         )}
       </div>
       <div className="favorite-icon">

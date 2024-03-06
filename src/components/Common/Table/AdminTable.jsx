@@ -189,6 +189,7 @@ function AdminTable({
           handleClose={handleCloseDeleteModal}
           handleConfirm={handleConfirmDelete}
           item={selectedItem}
+          mode="delete"
         />
         )}
         {isAddModalVisible
