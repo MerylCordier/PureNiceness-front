@@ -20,7 +20,8 @@ function Account() {
 
   const postAuth = async () => {
     try {
-      const response = await fetch('http://localhost:4000/api/auth/signin', {
+      const apiUrl = import.meta.env.VITE_API_URL;
+      const response = await fetch(`${apiUrl}/auth/signin`, {
         method: 'post',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),

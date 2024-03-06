@@ -57,11 +57,15 @@
   align-self: center;
 }
 
+.navbar-main .dropdown-menu {
+  left:0rem !important;
+}
+
 @media screen and (max-width: 426px) {
   .dropdown-menu {
     position: fixed;
     top: 3rem;
-    left: 0;
+    left: 0 !important;
     width: 100%;
     padding: 0;
     gap: 0.2rem;

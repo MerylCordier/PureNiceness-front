@@ -79,6 +79,12 @@ function Album({ oneAlbumSongs, setOneAlbumSongs }) {
     }
   };
 
+  const formatDuration = (durationInSeconds) => {
+    const minutes = Math.floor(durationInSeconds / 60);
+    const seconds = durationInSeconds % 60;
+    return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+  };
+
   return (
     <>
       <div className="album-container">
@@ -89,7 +95,7 @@ function Album({ oneAlbumSongs, setOneAlbumSongs }) {
         // true: map over the tracks array of the first album
           ? (
             oneAlbumSongs[0].tracks.map((track, index) => (
-              <div className="track-container" key={track.id}>
+              <div className="track-cover-container" key={track.id}>
                 <img className="track-cover" src={track.url_image} alt={track.name} />
                 <FontAwesomeIcon
                   icon={faPlay}
@@ -99,16 +105,35 @@ function Album({ oneAlbumSongs, setOneAlbumSongs }) {
                 <div className="track-name">
                   {track.name}
                 </div>
-                <div className="track-duration">
-                  {track.duration}
+                <div className="track-play">
+                  <FontAwesomeIcon
+                    icon={faPlay}
+                    className="play-icon"
+                    onClick={() => handleClickPlay(track)}
+                  />
                 </div>
-                <FontAwesomeIcon
-                  icon={track.liked ? solidStar : regularStar}
-                  onClick={() => {
-                    handleClickAddLikes(track);
-                  }}
-                  className="likes-icon"
-                />
+
+                <div className="track-infos">
+                  <div className="track-name">
+                    {track.name}
+                  </div>
+                  <div className="track-year">
+                    {track.year}
+                  </div>
+                </div>
+
+                <div className="track-duration">
+                  {formatDuration(track.duration)}
+                </div>
+                <div className="track-fav">
+                  <FontAwesomeIcon
+                    icon={track.liked ? solidStar : regularStar}
+                    onClick={() => {
+                      handleClickAddLikes(track);
+                    }}
+                    className="likes-icon"
+                  />
+                </div>
               </div>
             ))
           )

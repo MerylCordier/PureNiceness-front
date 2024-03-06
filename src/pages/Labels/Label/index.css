@@ -1,7 +1,7 @@
 .label-container {
   display: flex;
   flex-direction: column;
-  width: 95%;
+  width: 100%;
 }
 
 .label-name {
@@ -19,26 +19,38 @@
 .label-albums {
   display: flex;
   flex-direction: row;
-  width: 5rem;
-  margin:0.3rem
+  width: 100%;
+  overflow-x: scroll;
+  border: solid 2px var(--secondary-color);
+  border-radius:0.8rem;
+  margin: 0.5rem 0;
+  font-weight: 600;
+  font-size: 1rem;
+  padding:0.2rem;
 }
 
-.button-album-container {
+.list__album-container {
   display: flex;
   flex-wrap: wrap;
-  width: 3.5rem;
-  height: 3.5rem;
   justify-content: center;
   color: var(--secondary-color);
   margin: 0.3rem;
+  padding: 0.5rem;
+  gap: 0.5rem;
+  border: solid 1px black;
+  max-width: 6rem;
 }
 
-.button-album__image {
-  height: 75%;
+.list__album-image {
+  width: 4rem;
+  height: 4rem;
 }
 
-.button-album__name {
-  font-size: 0.8rem;
+.track-cover-container {
+  min-width: calc(4rem + 2px);
+  height: calc(4rem + 2px);
+  border: solid 1px white;
+  padding:0;
 }
 
 .player-container {
@@ -46,51 +58,67 @@
   bottom: 6rem;
   left: 0;
   width: 100%;
-  height: 2rem;  
+  height: 2rem;
 }
 
-
-.rhap_time{
-  color:black !important;
+.rhap_time {
+  color: black !important;
 }
 
-.rhap_container{
+.rhap_container {
   background-color: rgb(81, 81, 79) !important;
-  
-  }
+}
 
-.rhap_container button {  
+.rhap_container button {
   color: var(--secondary-color) !important;
 }
 
 .rhap_progress-filled {
-  background-color: var(--secondary-color) !important; 
+  background-color: var(--secondary-color) !important;
 }
-.rhap_progress-indicator{
-  background-color: var(--secondary-color) !important; 
+.rhap_progress-indicator {
+  background-color: var(--secondary-color) !important;
 }
-.rhap_volume-indicator{
-  background-color: var(--secondary-color) !important; 
+.rhap_volume-indicator {
+  background-color: var(--secondary-color) !important;
 }
-.rhap_volume-bar::-webkit-slider-runnable-track{
-  background-color: var(--secondary-color) !important; 
+.rhap_volume-bar::-webkit-slider-runnable-track {
+  background-color: var(--secondary-color) !important;
 }
-
-
 
 @media screen and (min-width: 426px) {
   .label-container {
     flex-direction: row;
   }
+
   .label-albums {
     flex-direction: column;
-    justify-content: space-between;
+    max-width: 7rem;
+    margin-right: 0.5rem;
+    height: calc(100vh - 2 * var(--navbar-height));
+    max-height: calc(100vh - 2 * var(--navbar-height));
+    overflow-y: scroll;
+    overflow-x: initial;
   }
+
+  .label-albums::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  .label-albums::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .list__album-container::-webkit-scrollbar-thumb {
+    background: var(--secondary-color);
+    border-radius: 10px;
+  }
+
   .album {
     margin: 0.2rem;
   }
+
   .player-container {
-    
-    bottom: 3rem;    
+    bottom: 3rem;
   }
 }

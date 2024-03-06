@@ -20,6 +20,7 @@ function DeleteAccount({ userId }) {
   const deleteElement = async () => {
     const isDelete = await fetchData('DELETE', `users/${userId}`, null, true);
     localStorage.removeItem('authApiToken');
+
     // hard refresh to update the user context
     window.location.href = '/';
     return isDelete;
