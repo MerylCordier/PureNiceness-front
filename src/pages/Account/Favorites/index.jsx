@@ -37,23 +37,23 @@ function Favorites({ userId }) {
   }, []);
 
   return (
-    <div className="account-likes">
-      <div className="tracks-list">
-        {likesDetails && likesDetails.map((track) => (
-          <div key={track.name}>
-            <p>
-              Titre de la piste :
-              {track.name}
-              Album :
-              {track.album_name}
-              Année :
-              {track.album_year}
-              <FontAwesomeIcon icon={faTrashCan} onClick={() => deleteLike(track.id)} />
-            </p>
-          </div>
-        ))}
-      </div>
+
+    <div className="tracks-containeur">
+      {likesDetails && likesDetails.map((track) => (
+        <div className="tracks-list" key={track.name}>
+          <p>
+            <span>Titre de la piste :</span>
+            {track.name}
+            <span>Album :</span>
+            {track.album_name}
+            <span>Année :</span>
+            {track.album_year}
+            <FontAwesomeIcon className="trash-can" icon={faTrashCan} onClick={() => deleteLike(track.id)} />
+          </p>
+        </div>
+      ))}
     </div>
+
   );
 }
 
