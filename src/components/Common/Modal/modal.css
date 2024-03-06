@@ -32,14 +32,27 @@
   border: 5px solid #0329a7;
 }
 
-.modal-style-update-user {
+.modal-style-update-user,
+.modal-style-delete-user {
   background-color: var(--secondary-color);
   border: 5px solid black;
 }
 
-.modal-style-update-user .modal__body {
+.modal-style-update-user .modal__body,
+.modal-style-delete-user .modal__body {
   background-color: var(--background-color);
   color:white;
+}
+
+.modal-style-delete-user .modal__body .modal-submit-buttons button{
+  color:var(--secondary-color);
+  border:solid 3px var(--secondary-color);
+}
+
+.modal-style-delete-user .modal__body .modal-submit-buttons button:hover{
+  background:var(--secondary-color);
+  color:white;
+  border:solid 3px white;
 }
 
 /* .modal .modal-style-update label {
@@ -53,16 +66,6 @@
 .modal-style-delete {
   background-color: #5e0000;
   border: 5px solid #a70303;
-}
-
-.modal-style-delete-user {
-  background-color: var(--secondary-color);
-  border: 5px solid black;
-}
-
-.modal-style-delete-user .modal__body {
-  background-color: var(--background-color);
-  color:white;
 }
 
 .modal-style-add {

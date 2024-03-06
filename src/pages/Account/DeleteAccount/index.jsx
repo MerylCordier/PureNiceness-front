@@ -48,12 +48,11 @@ function DeleteAccount({ userId }) {
     }
   };
 
-  DeleteModal(text, handleCloseDeleteModal, handleConfirmDelete);
-
   return (
     <>
       <div
-        tabIndex={0} // Rend l'élément focusable
+      // Rend l'élément focusable
+        tabIndex={0}
         onClick={handleOpenDeleteModal}
         onKeyDown={handleKeyDown}
         role="button"
@@ -69,6 +68,7 @@ function DeleteAccount({ userId }) {
         <DeleteModal
           handleClose={handleCloseDeleteModal}
           handleConfirm={handleConfirmDelete}
+          mode="delete-user"
         />
       )}
     </>
