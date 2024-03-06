@@ -97,19 +97,11 @@ function Album({ oneAlbumSongs, setOneAlbumSongs }) {
             oneAlbumSongs[0].tracks.map((track, index) => (
               <div className="track-container" key={track.id}>
                 <img className="track-cover-container" src={track.url_image} alt={track.name} />
-                <FontAwesomeIcon
-                  icon={faPlay}
-                  className="play-icon"
-                  onClick={() => { handleClickPlay(track, index); }}
-                />
-                <div className="track-name">
-                  {track.name}
-                </div>
                 <div className="track-play">
                   <FontAwesomeIcon
                     icon={faPlay}
                     className="play-icon"
-                    onClick={() => handleClickPlay(track)}
+                    onClick={() => { handleClickPlay(track, index); }}
                   />
                 </div>
 
