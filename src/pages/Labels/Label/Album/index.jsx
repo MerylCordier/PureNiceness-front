@@ -9,25 +9,65 @@ import AudioPlayer from 'react-h5-audio-player';
 import fetchData from '../../../../services/api/call.api';
 import 'react-h5-audio-player/lib/styles.css';
 
-function Album({ oneAlbumSongs, setOneAlbumSongs, albumId }) {
+function Album({ oneAlbumSongs, setOneAlbumSongs }) {
   const [trackData, setTrackData] = useState(null);
-  const handleClickPlay = async (track) => {
+
+  const [nextTrackIndex, setNextTrackIndex] = useState(0);
+
+  const handleClickPlay = async (track, index) => {
     const apiUrl = import.meta.env.VITE_API_URL;
+
     try {
       const fecthSoundData = await fetch(`${apiUrl}/tracks/${track.id}/audio`);
+
       if (!fecthSoundData.ok) {
         toast.error('Erreur lors du chargement de la musique');
         throw new Error('Erreur lors du chargement de la musique');
       }
+
       const audioBlob = await fecthSoundData.blob();
       const audioUrl = URL.createObjectURL(audioBlob);
+
       setTrackData(audioUrl);
+
+      const nextIndex = index < oneAlbumSongs[0].tracks.length ? index + 1 : 0;
+
+      setNextTrackIndex(nextIndex);
     } catch (error) {
       console.error(error);
     }
   };
+  const handleNextTrack = async () => {
+    const nextId = oneAlbumSongs[0].tracks[nextTrackIndex].id;
+
+    const apiUrl = import.meta.env.VITE_API_URL;
+
+    try {
+      const fecthSoundData = await fetch(`${apiUrl}/tracks/${nextId}/audio`);
+
+      if (!fecthSoundData.ok) {
+        toast.error('Erreur lors du chargement de la musique');
+        throw new Error('Erreur lors du chargement de la musique');
+      }
+
+      const audioBlob = await fecthSoundData.blob();
+      const audioUrl = URL.createObjectURL(audioBlob);
+
+      setTrackData(audioUrl);
+
+      const nextIndex = nextTrackIndex < oneAlbumSongs[0].tracks.length - 1
+        ? nextTrackIndex + 1
+        : 0;
+
+      setNextTrackIndex(nextIndex);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleClickAddLikes = async (track) => {
     const likeWithSuccess = await fetchData('GET', `tracks/${track.id}/likes`, null, true);
+
     if (likeWithSuccess) {
       setOneAlbumSongs((prevData) => prevData?.map((album) => ({
         ...album,
@@ -48,13 +88,13 @@ function Album({ oneAlbumSongs, setOneAlbumSongs, albumId }) {
         {oneAlbumSongs.length && oneAlbumSongs[0].tracks.length
         // true: map over the tracks array of the first album
           ? (
-            oneAlbumSongs[0].tracks.map((track) => (
+            oneAlbumSongs[0].tracks.map((track, index) => (
               <div className="track-container" key={track.id}>
                 <img className="track-cover" src={track.url_image} alt={track.name} />
                 <FontAwesomeIcon
                   icon={faPlay}
                   className="play-icon"
-                  onClick={() => handleClickPlay(track)}
+                  onClick={() => { handleClickPlay(track, index); }}
                 />
                 <div className="track-name">
                   {track.name}
@@ -82,9 +122,13 @@ function Album({ oneAlbumSongs, setOneAlbumSongs, albumId }) {
           src={trackData}
           className="audio-player"
           autoPlay
+          onEnded={() => { handleNextTrack(nextTrackIndex); }}
         />
+
       </div>
+
       )}
+
     </>
   );
 }
