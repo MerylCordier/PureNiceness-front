@@ -51,15 +51,15 @@ function Account() {
             <FontAwesomeIcon className="icon-gretter-size" icon={faReply} />
           </NavLink>
         </div>
-        <h1 id="h1-profil">PROFIL</h1>
+        <h1 className="h1-profil">PROFIL</h1>
         <div className="profil-icons">
           <a href="#informations">
             <FontAwesomeIcon className="icon-gretter-size" icon={faUser} />
-            Mes informations
+            <span>Mes informations</span>
           </a>
           <a href="#favorites">
             <FontAwesomeIcon className="icon-gretter-size" icon={faStar} />
-            Mes favoris
+            <span>Mes favoris</span>
           </a>
         </div>
       </div>
@@ -67,13 +67,15 @@ function Account() {
         <Infos
           accountDetails={accountDetails}
         />
-        <div onClick={handleOpenModal}>
-          <FontAwesomeIcon className="icon-gretter-size" icon={faUserPen} />
-          <span className="edit-account-text">Modifier le compte</span>
-        </div>
-        <div onClick={() => { setPasswordEdit(true); handleOpenModal(); }}>
-          <FontAwesomeIcon className="icon-gretter-size" icon={faUserPen} />
-          <span className="edit-account-text">Modifier le mot de passe</span>
+        <div className="edit-button-container">
+          <div className="edit-profil-button" onClick={handleOpenModal}>
+            <FontAwesomeIcon className="icon-gretter-size" icon={faUserPen} />
+            <span className="edit-account-text">Informations</span>
+          </div>
+          <div className="edit-profil-button" onClick={() => { setPasswordEdit(true); handleOpenModal(); }}>
+            <FontAwesomeIcon className="icon-gretter-size" icon={faUserPen} />
+            <span className="edit-account-text">Mot de passe</span>
+          </div>
         </div>
 
         {isModalVisible && (
@@ -95,7 +97,8 @@ function Account() {
           )
         )}
       </div>
-      <div className="favorite-icon">
+      <div className="favorite-title">
+        <FontAwesomeIcon className="icon-gretter-size" icon={faStar} />
         <h2 id="favorites">Favoris</h2>
       </div>
       <div>

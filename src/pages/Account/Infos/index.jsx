@@ -1,5 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import './index.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { useState, useEffect } from 'react';
 
 function Infos({ accountDetails }) {
@@ -13,7 +15,10 @@ function Infos({ accountDetails }) {
 
   return (
     <div>
-      <h2 id="informations">Informations personnelles</h2>
+      <div className="info-title">
+        <FontAwesomeIcon className="icon-gretter-size" icon={faUser} />
+        <h2 id="informations">Informations personnelles</h2>
+      </div>
       <div className="account">
         <p className="account-details">
           <span>Email :</span>

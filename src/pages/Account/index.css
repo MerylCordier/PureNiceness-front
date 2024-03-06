@@ -13,8 +13,13 @@
   font-weight: bold;
 }
 
-#h1-profil {
+.profil-container span{
+  display: none;
+}
+
+.h1-profil {
   margin-top: -2rem;
+  font-size: 1.5rem;
 }
 
 .icon-gretter-size {
@@ -25,7 +30,6 @@
 
 .profil-icons a {
   padding: 0 1.5rem;
-  
 }
 
 .tracks-list {
@@ -41,10 +45,37 @@
   justify-content: center;
 }
 
-#favorites {
+.favorite-title{
+  margin-top: 1rem;
   border-top: 1px solid rgb(96, 96, 96);
-  margin-top: 0.5rem;
-  padding-top: 0.5rem;
-  margin-bottom: 1rem;
-  font-size: 1.5rem;
+  display: flex;
+  padding: 1rem;
+  justify-content: center;
+  align-items: center;
 }
+
+#favorites {
+  padding-top: 0.2rem;
+  font-size: 1.3rem;
+}
+
+.edit-button-container{
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.edit-profil-button{
+  width:fit-content;
+}
+
+.edit-profil-button .icon-gretter-size{
+  margin-right: 0;
+}
+
+@media screen and (min-width: 426px) {
+  .profil-container span{
+    display:initial;
+  }
+}
+
