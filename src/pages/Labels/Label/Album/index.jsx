@@ -95,8 +95,8 @@ function Album({ oneAlbumSongs, setOneAlbumSongs }) {
         // true: map over the tracks array of the first album
           ? (
             oneAlbumSongs[0].tracks.map((track, index) => (
-              <div className="track-cover-container" key={track.id}>
-                <img className="track-cover" src={track.url_image} alt={track.name} />
+              <div className="track-container" key={track.id}>
+                <img className="track-cover-container" src={track.url_image} alt={track.name} />
                 <FontAwesomeIcon
                   icon={faPlay}
                   className="play-icon"
