@@ -37,9 +37,10 @@
 
 .trash-can {
   position: absolute;
-  top: 83%;
+  top: 1.6rem;
   right: 0%;
   padding: 1rem;
   cursor: pointer;
   color: #9e8a58;
+  font-size: 1.4rem;
 }

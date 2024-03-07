@@ -10,12 +10,13 @@ export const PlayerContext = createContext();
 function PlayerProvider({ children }) {
   const [trackData, setTrackData] = useState(null);
   const [nextTrackIndex, setNextTrackIndex] = useState(0);
+  const [nextTrackId, setNextTrackId] = useState(0);
   const [oneAlbumSongs, setOneAlbumSongs] = useState([]);
+  const [likesDetails, setLikesDetails] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClickPlay = async (track, index) => {
     const apiUrl = import.meta.env.VITE_API_URL;
-
     try {
       const fetchSoundData = await fetch(`${apiUrl}/tracks/${track.id}/audio`);
 
@@ -29,20 +30,35 @@ function PlayerProvider({ children }) {
       setIsOpen(true);
       setTrackData(audioUrl);
 
-      const nextIndex = index < oneAlbumSongs[0].tracks.length - 1 ? index + 1 : 0;
-
-      setNextTrackIndex(nextIndex);
+      if (oneAlbumSongs.length !== 0) {
+        const nextIndex = index < oneAlbumSongs[0].tracks.length - 1 ? index + 1 : 0;
+        setNextTrackIndex(nextIndex);
+      } else {
+        const nextIndex = index < likesDetails[0].lenght - 1 ? index + 1 : 0;
+        setNextTrackIndex(nextIndex);
+      }
     } catch (error) {
       console.error(error);
     }
   };
-  const handleNextTrack = async () => {
-    const nextId = oneAlbumSongs[0].tracks[nextTrackIndex].id;
 
+  const handleNextTrack = async () => {
     const apiUrl = import.meta.env.VITE_API_URL;
 
+    if (oneAlbumSongs.length !== 0) {
+      console.log('album', nextTrackIndex);
+      const nextId = oneAlbumSongs[0].tracks[nextTrackIndex].id;
+      //! nextId ok mais setNextTrackId ne se fait pas; utiliser un useEffect?
+      setNextTrackId(nextId);
+    } else {
+      console.log('fav:', nextTrackIndex);
+      const nextId = likesDetails[nextTrackIndex].id;
+      //! nextId ok mais setNextTrackId ne se fait pas
+      setNextTrackId(nextId);
+    }
+
     try {
-      const fetchSoundData = await fetch(`${apiUrl}/tracks/${nextId}/audio`);
+      const fetchSoundData = await fetch(`${apiUrl}/tracks/${nextTrackId}/audio`);
 
       if (!fetchSoundData.ok) {
         toast.error('Erreur lors du chargement de la musique');
@@ -54,11 +70,17 @@ function PlayerProvider({ children }) {
 
       setTrackData(audioUrl);
 
-      const nextIndex = nextTrackIndex < oneAlbumSongs[0].tracks.length - 1
-        ? nextTrackIndex + 1
-        : 0;
-
-      setNextTrackIndex(nextIndex);
+      if (likesDetails) {
+        const nextIndex = nextTrackIndex < likesDetails[0].length - 1
+          ? nextTrackIndex + 1
+          : 0;
+        setNextTrackIndex(nextIndex);
+      } else {
+        const nextIndex = nextTrackIndex < oneAlbumSongs[0].tracks.length - 1
+          ? nextTrackIndex + 1
+          : 0;
+        setNextTrackIndex(nextIndex);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -68,7 +90,13 @@ function PlayerProvider({ children }) {
     setIsOpen(false);
   };
 
-  const playerValues = { handleClickPlay, oneAlbumSongs, setOneAlbumSongs };
+  const playerValues = {
+    handleClickPlay,
+    oneAlbumSongs,
+    setOneAlbumSongs,
+    likesDetails,
+    setLikesDetails,
+  };
 
   return (
     <PlayerContext.Provider value={playerValues}>
