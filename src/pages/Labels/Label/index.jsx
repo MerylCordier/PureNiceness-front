@@ -4,15 +4,16 @@ import './index.css';
 import { jwtDecode } from 'jwt-decode';
 
 // Importing hooks from React
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 
 // Importing local files
 import fetchData from '../../../services/api/call.api';
 import Album from './Album';
+import { PlayerContext } from '../../../context/playerContext';
 
 function Label({ labelsWhithAlbums }) {
   // Defining state variables
-  const [oneAlbumSongs, setOneAlbumSongs] = useState([]);
+  const { oneAlbumSongs, setOneAlbumSongs } = useContext(PlayerContext);
   const [albumId, setAlbumId] = useState(labelsWhithAlbums[0]?.id);
 
   let userId;
@@ -82,7 +83,6 @@ function Label({ labelsWhithAlbums }) {
           <Album
             oneAlbumSongs={oneAlbumSongs}
             setOneAlbumSongs={setOneAlbumSongs}
-
           />
         </div>
       </div>
