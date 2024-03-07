@@ -85,6 +85,19 @@
 .rhap_volume-bar::-webkit-slider-runnable-track {
   background-color: var(--secondary-color) !important;
 }
+.rhap_progress-section{
+  width:90%;
+  margin-left: 4rem;
+  padding-right:2rem;
+}
+
+.icon-close-player{
+  position: absolute;
+  color: var(--secondary-color);
+  font-size: 1.5rem;
+  top: 0.4rem;
+  left: 1rem;
+}
 
 @media screen and (min-width: 426px) {
   .label-container {

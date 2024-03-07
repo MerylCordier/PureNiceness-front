@@ -2,6 +2,8 @@ import { useState, createContext } from 'react';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 import { toast } from 'react-toastify';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 
 export const PlayerContext = createContext();
 
@@ -9,7 +11,8 @@ function PlayerProvider({ children }) {
   const [trackData, setTrackData] = useState(null);
   const [nextTrackIndex, setNextTrackIndex] = useState(0);
   const [oneAlbumSongs, setOneAlbumSongs] = useState([]);
-  
+  const [isOpen, setIsOpen] = useState(false);
+
   const handleClickPlay = async (track, index) => {
     const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -23,7 +26,7 @@ function PlayerProvider({ children }) {
 
       const audioBlob = await fetchSoundData.blob();
       const audioUrl = URL.createObjectURL(audioBlob);
-
+      setIsOpen(true);
       setTrackData(audioUrl);
 
       const nextIndex = index < oneAlbumSongs[0].tracks.length - 1 ? index + 1 : 0;
@@ -61,12 +64,16 @@ function PlayerProvider({ children }) {
     }
   };
 
-  const playerValues = { handleClickPlay, oneAlbumSongs,setOneAlbumSongs };
+  const handleClosePlayer = () => {
+    setIsOpen(false);
+  };
+
+  const playerValues = { handleClickPlay, oneAlbumSongs, setOneAlbumSongs };
 
   return (
     <PlayerContext.Provider value={playerValues}>
       {children}
-      {trackData && (
+      {trackData && isOpen && (
       <div className="player-container">
         <AudioPlayer
           preload="metadata"
@@ -75,7 +82,13 @@ function PlayerProvider({ children }) {
           autoPlay
           onEnded={() => { handleNextTrack(nextTrackIndex); }}
         />
-
+        <div className="close-player">
+          <FontAwesomeIcon
+            icon={faCircleXmark}
+            className="icon-close-player"
+            onClick={() => { handleClosePlayer(); }}
+          />
+        </div>
       </div>
       )}
     </PlayerContext.Provider>
