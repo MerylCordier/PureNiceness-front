@@ -1,4 +1,4 @@
-import { useState, createContext } from 'react';
+import { useState, createContext, useEffect } from 'react';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 import { toast } from 'react-toastify';
@@ -85,6 +85,15 @@ function PlayerProvider({ children }) {
       console.error(error);
     }
   };
+  //! bloque le fetch au mount
+  // useEffect(() => {
+  //   const nextId = oneAlbumSongs[0].tracks[nextTrackIndex].id;
+  //   setNextTrackId(nextId);
+  // }, [oneAlbumSongs]);
+  // useEffect(() => {
+  //   const nextId = likesDetails[nextTrackIndex].id;
+  //   setNextTrackId(nextId);
+  // }, [likesDetails]);
 
   const handleClosePlayer = () => {
     setIsOpen(false);
