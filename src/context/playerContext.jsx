@@ -9,6 +9,7 @@ export const PlayerContext = createContext();
 
 function PlayerProvider({ children }) {
   const [trackData, setTrackData] = useState(null);
+  const [trackName, setTrackName] = useState('');
   const [nextTrackIndex, setNextTrackIndex] = useState(0);
   const [nextTrackId, setNextTrackId] = useState(0);
   const [oneAlbumSongs, setOneAlbumSongs] = useState([]);
@@ -16,9 +17,22 @@ function PlayerProvider({ children }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClickPlay = async (track, index) => {
+    console.log('nextTrackId', nextTrackId);
+    console.log('nextTrackIndex', nextTrackIndex);
     const apiUrl = import.meta.env.VITE_API_URL;
     try {
-      const fetchSoundData = await fetch(`${apiUrl}/tracks/${track.id}/audio`);
+      let fetchSoundData;
+      let nextIndex;
+
+      if (index === undefined) {
+        fetchSoundData = await fetch(`${apiUrl}/tracks/${nextTrackId}/audio`);
+        nextIndex = (nextTrackIndex + 1) % oneAlbumSongs[0].tracks.length;
+        setTrackName(oneAlbumSongs[0].tracks[nextTrackIndex].name);
+      } else {
+        fetchSoundData = await fetch(`${apiUrl}/tracks/${track.id}/audio`);
+        nextIndex = (index + 1) % oneAlbumSongs[0].tracks.length;
+        setTrackName(oneAlbumSongs[0].tracks[index].name);
+      }
 
       if (!fetchSoundData.ok) {
         toast.error('Erreur lors du chargement de la musique');
@@ -30,70 +44,13 @@ function PlayerProvider({ children }) {
       setIsOpen(true);
       setTrackData(audioUrl);
 
-      if (oneAlbumSongs.length !== 0) {
-        const nextIndex = index < oneAlbumSongs[0].tracks.length - 1 ? index + 1 : 0;
-        setNextTrackIndex(nextIndex);
-      } else {
-        const nextIndex = index < likesDetails[0].lenght - 1 ? index + 1 : 0;
-        setNextTrackIndex(nextIndex);
-      }
+      const nextId = oneAlbumSongs[0].tracks[nextIndex].id;
+      setNextTrackId(nextId);
+      setNextTrackIndex(nextIndex);
     } catch (error) {
       console.error(error);
     }
   };
-
-  const handleNextTrack = async () => {
-    const apiUrl = import.meta.env.VITE_API_URL;
-
-    if (oneAlbumSongs.length !== 0) {
-      console.log('album', nextTrackIndex);
-      const nextId = oneAlbumSongs[0].tracks[nextTrackIndex].id;
-      //! nextId ok mais setNextTrackId ne se fait pas; utiliser un useEffect?
-      setNextTrackId(nextId);
-    } else {
-      console.log('fav:', nextTrackIndex);
-      const nextId = likesDetails[nextTrackIndex].id;
-      //! nextId ok mais setNextTrackId ne se fait pas
-      setNextTrackId(nextId);
-    }
-
-    try {
-      const fetchSoundData = await fetch(`${apiUrl}/tracks/${nextTrackId}/audio`);
-
-      if (!fetchSoundData.ok) {
-        toast.error('Erreur lors du chargement de la musique');
-        throw new Error('Erreur lors du chargement de la musique');
-      }
-
-      const audioBlob = await fetchSoundData.blob();
-      const audioUrl = URL.createObjectURL(audioBlob);
-
-      setTrackData(audioUrl);
-
-      if (likesDetails) {
-        const nextIndex = nextTrackIndex < likesDetails[0].length - 1
-          ? nextTrackIndex + 1
-          : 0;
-        setNextTrackIndex(nextIndex);
-      } else {
-        const nextIndex = nextTrackIndex < oneAlbumSongs[0].tracks.length - 1
-          ? nextTrackIndex + 1
-          : 0;
-        setNextTrackIndex(nextIndex);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  //! bloque le fetch au mount
-  // useEffect(() => {
-  //   const nextId = oneAlbumSongs[0].tracks[nextTrackIndex].id;
-  //   setNextTrackId(nextId);
-  // }, [oneAlbumSongs]);
-  // useEffect(() => {
-  //   const nextId = likesDetails[nextTrackIndex].id;
-  //   setNextTrackId(nextId);
-  // }, [likesDetails]);
 
   const handleClosePlayer = () => {
     setIsOpen(false);
@@ -117,8 +74,9 @@ function PlayerProvider({ children }) {
           src={trackData}
           className="audio-player"
           autoPlay
-          onEnded={() => { handleNextTrack(nextTrackIndex); }}
+          onEnded={() => { handleClickPlay(nextTrackId); }}
         />
+
         <div className="close-player">
           <FontAwesomeIcon
             icon={faCircleXmark}
@@ -126,8 +84,13 @@ function PlayerProvider({ children }) {
             onClick={() => { handleClosePlayer(); }}
           />
         </div>
+
+        <div className="audio-player__track-name">
+          {trackName}
+        </div>
       </div>
       )}
+
     </PlayerContext.Provider>
   );
 }

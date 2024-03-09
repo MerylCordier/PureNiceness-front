@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import './index.css';
-import { useState, useEffect, useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { toast } from 'react-toastify';
@@ -18,7 +18,7 @@ function Favorites({ userId }) {
       setLikesDetails(fetchedLikesData);
     }
   };
-  
+
   const deleteLike = async (id) => {
     const isDeleteLike = await fetchData('GET', `tracks/${id}/likes`, null, true);
     if (isDeleteLike) {
@@ -64,15 +64,6 @@ function Favorites({ userId }) {
               <FontAwesomeIcon className="trash-can" icon={faTrashCan} onClick={() => deleteLike(track.id)} />
             </div>
 
-            {/* <p>
-            <span>Titre de la piste :</span>
-            {track.name}
-            <span>Album :</span>
-            {track.album_name}
-            <span>Année :</span>
-            {track.album_year}
-            <FontAwesomeIcon className="trash-can" icon={faTrashCan} onClick={() => deleteLike(track.id)} />
-          </p> */}
           </div>
         </div>
       ))}
