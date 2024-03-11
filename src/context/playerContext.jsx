@@ -9,6 +9,7 @@ export const PlayerContext = createContext();
 
 function PlayerProvider({ children }) {
   const [trackData, setTrackData] = useState(null);
+  const [currentTracks, setCurrentTracks] = useState([]);
   const [trackName, setTrackName] = useState('');
   const [nextTrackIndex, setNextTrackIndex] = useState(0);
   const [nextTrackId, setNextTrackId] = useState(0);
@@ -16,9 +17,14 @@ function PlayerProvider({ children }) {
   const [likesDetails, setLikesDetails] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
 
+  useEffect(() => { setCurrentTracks(likesDetails); }, [likesDetails]);
+
+  useEffect(
+    () => { oneAlbumSongs.map((album) => setCurrentTracks(album.tracks)); },
+    [oneAlbumSongs],
+  );
+
   const handleClickPlay = async (track, index) => {
-    console.log('nextTrackId', nextTrackId);
-    console.log('nextTrackIndex', nextTrackIndex);
     const apiUrl = import.meta.env.VITE_API_URL;
     try {
       let fetchSoundData;
@@ -26,12 +32,12 @@ function PlayerProvider({ children }) {
 
       if (index === undefined) {
         fetchSoundData = await fetch(`${apiUrl}/tracks/${nextTrackId}/audio`);
-        nextIndex = (nextTrackIndex + 1) % oneAlbumSongs[0].tracks.length;
-        setTrackName(oneAlbumSongs[0].tracks[nextTrackIndex].name);
+        nextIndex = (nextTrackIndex + 1) % currentTracks.length;
+        setTrackName(currentTracks[nextTrackIndex].name);
       } else {
         fetchSoundData = await fetch(`${apiUrl}/tracks/${track.id}/audio`);
-        nextIndex = (index + 1) % oneAlbumSongs[0].tracks.length;
-        setTrackName(oneAlbumSongs[0].tracks[index].name);
+        nextIndex = (index + 1) % currentTracks.length;
+        setTrackName(track.name);
       }
 
       if (!fetchSoundData.ok) {
@@ -44,7 +50,7 @@ function PlayerProvider({ children }) {
       setIsOpen(true);
       setTrackData(audioUrl);
 
-      const nextId = oneAlbumSongs[0].tracks[nextIndex].id;
+      const nextId = currentTracks[nextIndex].id;
       setNextTrackId(nextId);
       setNextTrackIndex(nextIndex);
     } catch (error) {
