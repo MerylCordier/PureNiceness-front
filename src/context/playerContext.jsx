@@ -3,7 +3,7 @@ import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 import { toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleXmark, faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
+import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 
 export const PlayerContext = createContext();
 
@@ -25,22 +25,29 @@ function PlayerProvider({ children }) {
     () => { oneAlbumSongs.map((album) => setCurrentTracks(album.tracks)); },
     [oneAlbumSongs],
   );
-  const handleClickPlay = async (track, index, isprevious=false) => {
+  const handleClickPlay = async (track, index, isPrevious = false) => {
     const apiUrl = import.meta.env.VITE_API_URL;
     try {
       let fetchSoundData;
       let nextIndex;
       let previousIndex;
-      
+
       if (index === undefined) {
-        fetchSoundData = await fetch(`${apiUrl}/tracks/${!isprevious ? nextTrackId : previousTrackId}/audio`);
-        nextIndex = (nextTrackIndex + 1) % currentTracks.length;
-        previousIndex = (previousTrackIndex - 1 + currentTracks.length) % currentTracks.length;
-        setTrackName(!isprevious ? currentTracks[nextTrackIndex].name : currentTracks[previousTrackIndex].name);
+        fetchSoundData = await fetch(`${apiUrl}/tracks/${!isPrevious ? nextTrackId : previousTrackId}/audio`);
+        nextIndex = isPrevious
+          ? (nextTrackIndex - 1 + currentTracks.length) % currentTracks.length
+          : (nextTrackIndex + 1) % currentTracks.length;
+        previousIndex = isPrevious
+          ? (previousTrackIndex - 1 + currentTracks.length) % currentTracks.length
+          : (previousTrackIndex + 1) % currentTracks.length;
+
+        setTrackName(!isPrevious ? currentTracks[nextTrackIndex].name
+          : currentTracks[previousTrackIndex].name);
       } else {
         fetchSoundData = await fetch(`${apiUrl}/tracks/${track.id}/audio`);
         nextIndex = (index + 1) % currentTracks.length;
         previousIndex = (index - 1 + currentTracks.length) % currentTracks.length;
+
         setTrackName(track.name);
       }
 
@@ -61,7 +68,6 @@ function PlayerProvider({ children }) {
       const previousId = currentTracks[previousIndex].id;
       setPreviousTrackId(previousId);
       setPreviousTrackIndex(previousIndex);
-     
     } catch (error) {
       console.error(error);
     }
@@ -89,11 +95,11 @@ function PlayerProvider({ children }) {
           src={trackData}
           className="audio-player"
           autoPlay
-          showSkipControls={true}
+          showSkipControls
           showJumpControls={false}
           onEnded={() => { handleClickPlay(nextTrackId); }}
           onClickNext={() => { handleClickPlay(nextTrackId); }}
-          onClickPrevious={() => { handleClickPlay(previousTrackId,undefined,true); }}
+          onClickPrevious={() => { handleClickPlay(previousTrackId, undefined, true); }}
         />
 
         <div className="close-player">
