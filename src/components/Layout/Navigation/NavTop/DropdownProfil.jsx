@@ -10,9 +10,9 @@ function DropdownProfil() {
 
   const loggedLinks = [
     { id: 1, path: '/account', label: 'Profil' },
-    { id: 2, path: '/account#informations', label: 'Mes informations' },
+    { id: 2, path: `/account#informations`, label: 'Mes informations' },
     { id: 3, path: '/account#favorites', label: 'Mes favoris' },
-    { id: 4, path: '/account#messages', label: 'Mes messages' },
+    // { id: 4, path: '/account#messages', label: 'Mes messages' },
     { id: 5, path: '/signout', label: 'Me déconnecter' },
   ];
 
