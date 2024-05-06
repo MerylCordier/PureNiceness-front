@@ -17,7 +17,7 @@ function Infos({ accountDetails }) {
     <div>
       <div className="info-title">
         <FontAwesomeIcon className="icon-gretter-size" icon={faUser} />
-        <h2 id="informations">Informations personnelles</h2>
+        <h2 id="informations">Mes informations</h2>
       </div>
       <div className="account">
         <p className="account-details">

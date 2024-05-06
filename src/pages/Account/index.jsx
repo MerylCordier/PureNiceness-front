@@ -51,7 +51,7 @@ function Account() {
             <FontAwesomeIcon className="icon-gretter-size" icon={faReply} />
           </NavLink>
         </div>
-        <h1 className="h1-profil">PROFIL</h1>
+        <h1 className="h1-profil">Mon profil</h1>
         <div className="profil-icons">
           <a href="#informations">
             <FontAwesomeIcon className="icon-gretter-size" icon={faUser} />
@@ -99,7 +99,7 @@ function Account() {
       </div>
       <div className="favorite-title">
         <FontAwesomeIcon className="icon-gretter-size" icon={faStar} />
-        <h2 id="favorites">Favoris</h2>
+        <h2 id="favorites">Mes favoris</h2>
       </div>
       <div>
         <Favorites userId={userId} />
