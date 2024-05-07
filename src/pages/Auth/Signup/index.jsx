@@ -11,7 +11,7 @@ function Singup() {
     passwordConfirm: '',
     lastname: '',
     firstname: '',
-    birthdate: '',
+    birthdate: '1999-01',
     address: '',
     zipcode: '',
     city: '',
@@ -68,70 +68,70 @@ function Singup() {
         <div className="form_div">
           <label className="form_label" htmlFor="email">
             <p className="label_name">Votre Email</p>
-            <input className="contact_input" type="email" id="email" name="email" value={formUserData.email} onChange={handleChange} />
+            <input className="contact_input" type="email" id="email" name="email" placeholder="Email" value={formUserData.email} onChange={handleChange} />
           </label>
         </div>
 
         <div className="form_div">
           <label className="form_label" htmlFor="lastname">
             <p className="label_name">Nom</p>
-            <input className="contact_input" type="text" id="lastname" name="lastname" value={formUserData.lastname} onChange={handleChange} />
+            <input className="contact_input" type="text" id="lastname" name="lastname" placeholder="Nom" value={formUserData.lastname} onChange={handleChange} />
           </label>
         </div>
 
         <div className="form_div">
           <label className="form_label" htmlFor="firstname">
             <p className="label_name">Prénom</p>
-            <input className="contact_input" type="text" id="firstname" name="firstname" value={formUserData.firstname} onChange={handleChange} />
+            <input className="contact_input" type="text" id="firstname" name="firstname" placeholder="Prénom" value={formUserData.firstname} onChange={handleChange} />
           </label>
         </div>
 
         <div className="form_div">
           <label className="form_label" htmlFor="birthdate">
             <p className="label_name">Date de naissance</p>
-            <input className="contact_input" type="date" id="birthdate" name="birthdate" value={formUserData.birthdate} onChange={handleChange} />
+            <input className="contact_input" /*type="month"*/ type="date" id="birthdate" name="birthdate" value={formUserData.birthdate} onChange={handleChange} />
           </label>
         </div>
 
         <div className="form_div">
           <label className="form_label" htmlFor="address">
             <p className="label_name">Adresse</p>
-            <input className="contact_input" type="text" id="address" name="address" value={formUserData.address} onChange={handleChange} />
+            <input className="contact_input" type="text" id="address" name="address" placeholder="N° et rue" value={formUserData.address} onChange={handleChange} />
           </label>
         </div>
 
         <div className="form_div">
           <label className="form_label" htmlFor="zipcode">
             <p className="label_name">Code postal</p>
-            <input className="contact_input" type="text" id="zipcode" name="zipcode" value={formUserData.zipcode} onChange={handleChange} />
+            <input className="contact_input" type="text" id="zipcode" name="zipcode" placeholder="code postal" value={formUserData.zipcode} onChange={handleChange} />
           </label>
         </div>
 
         <div className="form_div">
           <label className="form_label" htmlFor="city">
             <p className="label_name">Ville</p>
-            <input className="contact_input" type="text" id="city" name="city" value={formUserData.city} onChange={handleChange} />
+            <input className="contact_input" type="text" id="city" name="city" placeholder="Ville" value={formUserData.city} onChange={handleChange} />
           </label>
         </div>
 
         <div className="form_div">
           <label className="form_label" htmlFor="country">
             <p className="label_name">Pays</p>
-            <input className="contact_input" type="text" id="country" name="country" value={formUserData.country} onChange={handleChange} />
+            <input className="contact_input" type="text" id="country" name="country" placeholder="Pays" value={formUserData.country} onChange={handleChange} />
           </label>
         </div>
 
         <div className="form_div">
           <label className="form_label" htmlFor="password">
             <p className="label_name">Mot de passe</p>
-            <input className="contact_input" type="password" id="password" name="password" value={formUserData.password} onChange={handleChange} />
+            <input className="contact_input" type="password" id="password" name="password" placeholder="Mot de passe" value={formUserData.password} onChange={handleChange} />
           </label>
         </div>
 
         <div className="form_div">
           <label className="form_label" htmlFor="passwordConfirm">
             <p className="label_name">Confirmation</p>
-            <input className="contact_input" type="password" id="passwordConfirm" name="passwordConfirm" value={formUserData.passwordConfirm} onChange={handleChange} />
+            <input className="contact_input" type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Confirmation du mot de passe" value={formUserData.passwordConfirm} onChange={handleChange} />
           </label>
         </div>
 
