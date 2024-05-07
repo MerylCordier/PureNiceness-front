@@ -1,7 +1,6 @@
 :root {
   --primary-color: #007bff;
   --secondary-color: #9e8a58;
-  --third-color: darkolivegreen;
   --background-color: #313131;
   --main-padding: 1rem;
   --navbar-height: 3rem;
@@ -45,6 +44,10 @@ main a {
 .button,
 .input {
   position: static !important;
+}
+::-webkit-input-placeholder{
+  opacity: 1 !important;
+  color:var(--background-color) !important;
 }
 
 /* barre de défilement*/
