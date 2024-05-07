@@ -62,28 +62,28 @@ function ContactForm() {
         <div className="form_div">
           <label className="form_label" htmlFor="from">
             <p className="label_name">Votre Email*</p>
-            <input className="contact_input" type="email" id="from" name="from" value={formData.from} onChange={handleChange} />
+            <input className="contact_input" type="email" id="from" name="from"  placeholder="Email" value={formData.from} onChange={handleChange} />
           </label>
         </div>
 
         <div className="form_div">
           <label className="form_label" htmlFor="subject">
             <p className="label_name">Objet*</p>
-            <input className="contact_input" type="text" id="subject" name="subject" value={formData.subject} onChange={handleChange} />
+            <input className="contact_input" type="text" id="subject" name="subject" placeholder="Objet" value={formData.subject} onChange={handleChange} />
           </label>
         </div>
 
         <div className="form_div">
           <label className="form_label" htmlFor="company">
             <p className="label_name">Entreprise</p>
-            <input className="contact_input" type="text" id="company" name="company" value={formData.company} onChange={handleChange} />
+            <input className="contact_input" type="text" id="company" name="company" placeholder="Entreprise (facultatif)" value={formData.company} onChange={handleChange} />
           </label>
         </div>
 
         <div className="form_div">
           <label className="form_label" htmlFor="message">
             <p className="label_name">Message*</p>
-            <textarea className="contact_text-area" id="message" name="message" value={formData.message} onChange={handleChange} />
+            <textarea className="contact_text-area" id="message" name="message" placeholder="Votre message" value={formData.message} onChange={handleChange} />
           </label>
           <p className="form_label">* (Champs obligatoires)</p>
         </div>
