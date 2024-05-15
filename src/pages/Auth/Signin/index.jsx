@@ -3,9 +3,11 @@ import './index.css';
 
 import { useEffect, useState, useContext } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import React from 'react';
+import ReCAPTCHA from "react-google-recaptcha"; 
+import { toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { toast } from 'react-toastify';
 import { UserContext } from '../../../context/userContext';
 import checkAdminRole from '../../../services/auth/checkAdmin';
 import checkConnected from '../../../services/auth/checkConnected';
@@ -13,6 +15,7 @@ import checkConnected from '../../../services/auth/checkConnected';
 function Account() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isCaptchaSuccessful, setIsCaptchaSuccess] = React.useState(false)
   const { isAdmin, setIsAdmin } = useContext(UserContext);
   const { isConnected, setIsConnected } = useContext(UserContext);
   const navigate = useNavigate();
@@ -53,6 +56,12 @@ function Account() {
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
+
+  
+  function onChange(value) {
+    setIsCaptchaSuccess(true)
+
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -96,7 +105,13 @@ function Account() {
           required
         />
 
-        <button className="button is-warning is-light" type="submit">Connexion</button>
+        <ReCAPTCHA
+          sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+          onChange={onChange}
+                    
+        />
+
+        <button className="button is-warning is-light" type="submit" disabled={!isCaptchaSuccessful}>Connexion</button>
 
       </form>
 
