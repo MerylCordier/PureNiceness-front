@@ -1,10 +1,13 @@
+import React from 'react';
+import ReCAPTCHA from "react-google-recaptcha"; 
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import fetchData from '../../../services/api/call.api';
-// eslint-disable-next-line import/order
 import { toast } from 'react-toastify';
+import fetchData from '../../../services/api/call.api';
 
 function Singup() {
+  const [isCaptchaSuccessful, setIsCaptchaSuccess] = React.useState(false)
+
   const [formUserData, setFormUserData] = useState({
     email: '',
     password: '',
@@ -56,6 +59,10 @@ function Singup() {
     } catch (error) {
       console.error(error.message);
     }
+  };
+
+  function onChange(value) {
+    setIsCaptchaSuccess(true)
   };
 
   return (
@@ -135,7 +142,14 @@ function Singup() {
           </label>
         </div>
 
-        <button className="submit_contact_button" type="submit">Envoyer</button>
+        <ReCAPTCHA
+          className='recaptcha'
+          sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+          size='normal'
+          onChange={onChange}                    
+        />
+
+        <button className="button is-warning is-light" type="submit" disabled={!isCaptchaSuccessful}>Envoyer</button>
 
       </form>
     </>

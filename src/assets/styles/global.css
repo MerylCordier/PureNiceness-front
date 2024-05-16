@@ -50,6 +50,12 @@ main a {
   color:var(--background-color) !important;
 }
 
+.recaptcha {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  }
+
 /* barre de défilement*/
 /* body::-webkit-scrollbar {
     width: 5px;

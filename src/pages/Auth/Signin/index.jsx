@@ -1,10 +1,10 @@
 /* eslint-disable react/no-unescaped-entities */
 import './index.css';
 
-import { useEffect, useState, useContext } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
 import React from 'react';
 import ReCAPTCHA from "react-google-recaptcha"; 
+import { useEffect, useState, useContext } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
@@ -60,7 +60,6 @@ function Account() {
   
   function onChange(value) {
     setIsCaptchaSuccess(true)
-
   }
 
   const handleSubmit = async (event) => {
@@ -106,9 +105,10 @@ function Account() {
         />
 
         <ReCAPTCHA
+          className='recaptcha'
           sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
-          onChange={onChange}
-                    
+          size='normal'
+          onChange={onChange}                    
         />
 
         <button className="button is-warning is-light" type="submit" disabled={!isCaptchaSuccessful}>Connexion</button>
