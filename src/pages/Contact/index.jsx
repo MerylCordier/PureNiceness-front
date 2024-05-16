@@ -1,11 +1,15 @@
 /* eslint-disable no-console */
 import './index.css';
+import React from 'react';
+import ReCAPTCHA from "react-google-recaptcha"; 
 import { useState } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import { toast } from 'react-toastify';
 import fetchData from '../../services/api/call.api';
 
 function ContactForm() {
+  const [isCaptchaSuccessful, setIsCaptchaSuccess] = React.useState(false)
+
   const token = localStorage.getItem('authApiToken');
   let email = '';
 
@@ -51,6 +55,10 @@ function ContactForm() {
     }
   };
 
+  function onChange(value) {
+    setIsCaptchaSuccess(true)
+  };
+
   return (
     <>
 
@@ -88,7 +96,14 @@ function ContactForm() {
           <p className="form_label">* (Champs obligatoires)</p>
         </div>
 
-        <button className="submit_contact_button" type="submit">Envoyer</button>
+        <ReCAPTCHA
+          className='recaptcha'
+          sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+          size='normal'
+          onChange={onChange}                    
+        />
+        
+        <button className="submit_contact_button" type="submit" disabled={!isCaptchaSuccessful}>Envoyer</button>
 
       </form>
     </>
