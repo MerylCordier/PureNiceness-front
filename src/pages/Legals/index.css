@@ -1,0 +1,54 @@
+.legal_h1 {  
+  color: black;
+  padding: 10px;
+  margin: 10px;
+}
+
+.legal_h2 {
+  border-top: 3px solid var(--secondary-color);
+  text-transform: capitalize;
+  font-size: larger;
+  border-top-left-radius: 15%;
+  border-top-right-radius: 15%;
+  padding: 10px;
+  margin: 10px;
+}
+
+.legal_ol{
+  list-style-type: decimal;
+  list-style-position: inside;  
+  text-align: left;
+  margin: 15px;
+}
+
+.legal_ol > li {
+  position: relative; 
+  padding: 8px;
+}
+
+.legal_ol li::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0%; 
+  width: 30%;
+  border-bottom: 2px solid var(--secondary-color);    
+}
+
+.legal_ol ul li{
+  border: none;
+  margin: 10px;
+}
+
+.legal_p, .legal_h3{
+  margin: 10px;
+}
+
+.legal_link {
+  color: var(--secondary-color);
+  text-decoration: underline;
+}
+
+.legal_link:hover {
+  color: black;
+}

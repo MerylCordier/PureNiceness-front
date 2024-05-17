@@ -26,6 +26,7 @@ import Labels, { musicDataLoader } from '../pages/Labels';
 import Events from '../pages/Events';
 import Medias from '../pages/Medias';
 import Signin from '../pages/Auth/Signin';
+import Legals from '../pages/Legals';
 import ErrorPage from '../pages/error';
 
 // Création du routeur
@@ -42,6 +43,7 @@ const router = createBrowserRouter([
       { path: '/signup', element: <Signup /> },
       { path: '/events', element: <Events /> },
       { path: '/medias', element: <Medias /> },
+      { path: '/legals', element: <Legals />},
       {
         path: '/labels',
         element: <Labels />,
