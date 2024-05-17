@@ -9,7 +9,7 @@ function DropdownLabel() {
     const labelsData = await fetchData('GET', 'labels');
     const labelLinks = [];
     labelsData.map((label) => {
-      if (label.name !== 'King Hi-Fi Sound System') {
+      if (label.name /*!== 'King Hi-Fi Sound System'*/) {
         labelLinks.push({ id: label.id, path: `/labels/${label.id}`, label: label.name })
       }
     });
