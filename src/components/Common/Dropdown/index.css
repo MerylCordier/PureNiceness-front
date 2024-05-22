@@ -81,7 +81,9 @@
 
   .navbar-main .dropdown-menu {
     left: 0rem !important;
-    z-index: 1000; 
-    transform: translateY(251.5%); 
+    position: fixed;
+    
+    z-index: 100; 
+    transform: translateY(425px); 
   }
 }
