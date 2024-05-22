@@ -3,8 +3,9 @@
   margin: auto;
 }
 .title {
-  color: black;
-  font-size: 2.5rem;
+  color: rgba(245, 245, 245, 0.905);
+  font-size: 2rem;
+  margin-top: 10px;
 }
 .subtitle {
   color: rgb(161, 161, 161);

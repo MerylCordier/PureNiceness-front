@@ -111,7 +111,7 @@ function Account() {
           onChange={onChange}                    
         />
 
-        <button className="button is-warning is-light" type="submit" disabled={!isCaptchaSuccessful}>Connexion</button>
+        <button className="button is-medium is-warning is-light" type="submit" disabled={!isCaptchaSuccessful}>Connexion</button>
 
       </form>
 
