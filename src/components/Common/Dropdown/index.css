@@ -76,14 +76,15 @@
   }
 
   .dropdown-content {
-    width: 100%;
+    width: 100% !important;
+    position: relative; 
+    padding: 0 !important;
   }
 
-  .navbar-main .dropdown-menu {
-    left: 0rem !important;
+  .navbar-main .dropdown-item {
     position: fixed;
-    
-    z-index: 100; 
-    transform: translateY(425px); 
+    bottom: 48px; /* Adjust this value to be just above the navbar */
+    z-index: 999;
+    width: 100% !important;
   }
 }
