@@ -50,6 +50,11 @@
   size: 1.3rem !important;
 }
 
+/* #dropdown-menu4 {
+  position: fixed;
+  top: 3rem;
+} */
+
 .dropdown-item .button {
   width: 5rem !important;
   height: 1.5rem;
@@ -57,9 +62,7 @@
   align-self: center;
 }
 
-.navbar-main .dropdown-menu {
-  left:0rem !important;
-}
+
 
 @media screen and (max-width: 426px) {
   .dropdown-menu {
@@ -74,5 +77,11 @@
 
   .dropdown-content {
     width: 100%;
+  }
+
+  .navbar-main .dropdown-menu {
+    left: 0rem !important;
+    z-index: 1000; 
+    transform: translateY(251.5%); 
   }
 }
