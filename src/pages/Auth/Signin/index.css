@@ -68,6 +68,10 @@ h1 {
   font-size: 2rem;
 }
 
+.button.is-medium.is-warning.is-light{
+padding: 15px;
+}
+
 @media screen and (min-width: 426px) {
   .return-link {
     display: none;
