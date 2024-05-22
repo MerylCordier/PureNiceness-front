@@ -76,6 +76,8 @@ function Dropdown({
                     <Link
                       key={link.id}
                       to={link.path}
+                      //appeler fonction qui change la classe de l'élément parent
+                      className={link.path.includes('/labels') ? 'at-bottom' : ''}
                       onClick={() => { handleClickLink(); closeDropdown(); }}
                     >
                       {link.label}

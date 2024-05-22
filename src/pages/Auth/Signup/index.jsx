@@ -143,9 +143,9 @@ function Singup() {
         </div>
 
         <ReCAPTCHA
-          className='recaptcha'
+          className='recaptcha signup'
           sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
-          size='normal'
+          size='compact'
           onChange={onChange}                    
         />
 

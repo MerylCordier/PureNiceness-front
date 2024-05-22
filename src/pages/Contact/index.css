@@ -20,6 +20,10 @@
   text-align:center;
 }
 
+button.is-warning.is-light{
+  margin: 10px 0 0 0;
+}
+
 .label_name {
   margin-bottom: 0.4rem;
 }
@@ -50,19 +54,6 @@
   height: 100px;
 }
 
-.submit_contact_button {
-  background-color: #9e8a58;
-  color: #fff;
-  padding: 10px 20px;
-  margin-top:1rem;
-  border-radius: 8px;
-  width: 100%;
-  max-width: 400px;
-}
-
-.submit_contact_button:hover {
-  background-color: #af8928;
-}
 
 @media screen and (min-width: 426px) {
   .form__signup-container {
@@ -78,5 +69,24 @@
   .form__signup-container .form_div{
     flex-basis: calc(50% - 10px);
     margin:0;
+  }
+}
+
+@media screen and (min-width: 768px){
+  .recaptcha.signup {
+    margin-right: 28% !important;
+  }
+    
+  .form__signup-container .button.is-warning.is-light{
+    margin-right: 3%;
+  }
+
+  .form_div.submit {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  .form_div.submit .button.is-warning.is-light{
+    margin-right: 30%;
   }
 }

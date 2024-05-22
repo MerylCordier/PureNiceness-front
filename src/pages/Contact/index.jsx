@@ -96,15 +96,16 @@ function ContactForm() {
           <p className="form_label">* (Champs obligatoires)</p>
         </div>
 
+        <div className="form_div submit">
         <ReCAPTCHA
-          className='recaptcha'
+          className='recaptcha contact'
           sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
-          size='normal'
+          size='compact'
           onChange={onChange}                    
         />
         
-        <button className="submit_contact_button" type="submit" disabled={!isCaptchaSuccessful}>Envoyer</button>
-
+        <button className="button is-warning is-light" type="submit" disabled={!isCaptchaSuccessful}>Envoyer</button>
+        </div>
       </form>
     </>
   );
