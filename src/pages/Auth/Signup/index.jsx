@@ -14,7 +14,7 @@ function Singup() {
     passwordConfirm: '',
     lastname: '',
     firstname: '',
-    birthdate: '1999-01',
+    birthdate: '1970-01-01',
     address: '',
     zipcode: '',
     city: '',
@@ -27,12 +27,13 @@ function Singup() {
     passwordConfirm: '',
     lastname: '',
     firstname: '',
-    birthdate: '',
+    birthdate: '1970-01-01',
     address: '',
     zipcode: '',
     city: '',
     country: '',
   };
+  // console.log(formUserData.birthdate);
 
   const navigate = useNavigate();
 
@@ -92,11 +93,11 @@ function Singup() {
             <input className="contact_input" type="text" id="firstname" name="firstname" placeholder="Prénom" value={formUserData.firstname} onChange={handleChange} />
           </label>
         </div>
-
-        <div className="form_div">
+        
+          <div className="form_div">
           <label className="form_label" htmlFor="birthdate">
             <p className="label_name">Date de naissance</p>
-            <input className="contact_input" /*type="month"*/ type="date" id="birthdate" name="birthdate" value={formUserData.birthdate} onChange={handleChange} />
+            <input className="contact_input" type="month" /*type="text"*/ id="birthdate" name="birthdate" value={formUserData.birthdate} onChange={handleChange} />
           </label>
         </div>
 
