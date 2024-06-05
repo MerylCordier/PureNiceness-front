@@ -4,6 +4,7 @@
 }
 .title {
   color: rgba(245, 245, 245, 0.905);
+  text-shadow: black 0.2rem 0.2rem 0rem;
   font-size: 2rem;
   margin-top: 10px;
 }

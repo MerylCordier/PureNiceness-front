@@ -14,8 +14,8 @@ function Singup() {
     passwordConfirm: '',
     lastname: '',
     firstname: '',
-    birthdate: '1999-01',
-    address: '',
+    // birthdate: '',
+    // address: '',
     zipcode: '',
     city: '',
     country: '',
@@ -27,8 +27,8 @@ function Singup() {
     passwordConfirm: '',
     lastname: '',
     firstname: '',
-    birthdate: '',
-    address: '',
+    // birthdate: '',
+    // address: '',
     zipcode: '',
     city: '',
     country: '',
@@ -93,19 +93,21 @@ function Singup() {
           </label>
         </div>
 
-        <div className="form_div">
+        {/* <div className="form_div">
           <label className="form_label" htmlFor="birthdate">
             <p className="label_name">Date de naissance</p>
-            <input className="contact_input" /*type="month"*/ type="date" id="birthdate" name="birthdate" value={formUserData.birthdate} onChange={handleChange} />
+            <input className="contact_input"  
+            type="month" or type="date" 
+            id="birthdate" name="birthdate" value={formUserData.birthdate} onChange={handleChange} />
           </label>
-        </div>
+        </div> 
 
         <div className="form_div">
           <label className="form_label" htmlFor="address">
             <p className="label_name">Adresse</p>
             <input className="contact_input" type="text" id="address" name="address" placeholder="N° et rue" value={formUserData.address} onChange={handleChange} />
           </label>
-        </div>
+        </div> */}
 
         <div className="form_div">
           <label className="form_label" htmlFor="zipcode">
