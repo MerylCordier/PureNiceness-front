@@ -3,7 +3,7 @@ import './index.css';
 
 import React from 'react';
 import ReCAPTCHA from "react-google-recaptcha"; 
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext, useRef } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -15,24 +15,32 @@ import checkConnected from '../../../services/auth/checkConnected';
 function Account() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isCaptchaSuccessful, setIsCaptchaSuccess] = React.useState(false)
+  const [isCaptchaSuccessful, setIsCaptchaSuccess] = React.useState(false);
   const { isAdmin, setIsAdmin } = useContext(UserContext);
   const { isConnected, setIsConnected } = useContext(UserContext);
+  const recaptcha = useRef();
   const navigate = useNavigate();
   const location = useLocation();
 
   const postAuth = async () => {
     try {
+      const recaptchaValue = recaptcha.current.getValue();
+    if (!recaptchaValue){
+      toast.error('Veuillez valider le captcha');
+    }
+    
       const apiUrl = import.meta.env.VITE_API_URL;
       const response = await fetch(`${apiUrl}/auth/signin`, {
         method: 'post',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password, recaptchaValue}),
       });
       const data = await response.json();
+            
       if (!response.ok) {
         return { error: data.error };
       }
+
       localStorage.setItem('authApiToken', data.token);
       setIsAdmin(checkAdminRole());
       setIsConnected(checkConnected());
@@ -42,7 +50,7 @@ function Account() {
     }
   };
 
-  useEffect(() => {
+  useEffect(() => {    
     const token = localStorage.getItem('authApiToken');
     if (token) {
       navigate('/', { state: { from: location }, replace: true });
@@ -56,15 +64,15 @@ function Account() {
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
-
   
   function onChange(value) {
-    setIsCaptchaSuccess(true)
+    setIsCaptchaSuccess(true);  
   }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const result = await postAuth();
+    console.log(result)
     if (result.redirectTo) {
       toast.success('Connexion réussie');
       navigate(result.redirectTo, { state: { from: location }, replace: true });
@@ -106,6 +114,7 @@ function Account() {
 
         <ReCAPTCHA
           className='recaptcha'
+          ref={recaptcha}
           sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
           size='normal'
           onChange={onChange}                    
