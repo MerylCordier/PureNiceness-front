@@ -2,33 +2,30 @@
 import './index.css';
 
 import React from 'react';
-import ReCAPTCHA from "react-google-recaptcha"; 
-import { useEffect, useState, useContext, useRef } from 'react';
+import { useEffect, useState, useContext} from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { UserContext } from '../../../context/userContext';
+import Captcha from '../../../components/Common/Captcha/index ';
 import checkAdminRole from '../../../services/auth/checkAdmin';
 import checkConnected from '../../../services/auth/checkConnected';
 
 function Account() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isCaptchaSuccessful, setIsCaptchaSuccess] = React.useState(false);
+  const [captchaData, setCaptchaData] = useState('');
   const { isAdmin, setIsAdmin } = useContext(UserContext);
   const { isConnected, setIsConnected } = useContext(UserContext);
-  const recaptcha = useRef();
+  
   const navigate = useNavigate();
   const location = useLocation();
+  
+  const { isCaptchaSuccessful, recaptchaValue } = captchaData;
 
   const postAuth = async () => {
-    try {
-      const recaptchaValue = recaptcha.current.getValue();
-    if (!recaptchaValue){
-      toast.error('Veuillez valider le captcha');
-    }
-    
+      try {
       const apiUrl = import.meta.env.VITE_API_URL;
       const response = await fetch(`${apiUrl}/auth/signin`, {
         method: 'post',
@@ -64,11 +61,11 @@ function Account() {
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
-  
-  function onChange(value) {
-    setIsCaptchaSuccess(true);  
-  }
 
+  const handleDataCaptcha = (data) => {
+    setCaptchaData(data); 
+  };
+ 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const result = await postAuth();
@@ -112,15 +109,13 @@ function Account() {
           required
         />
 
-        <ReCAPTCHA
-          className='recaptcha'
-          ref={recaptcha}
-          sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
-          size='normal'
-          onChange={onChange}                    
-        />
+        <Captcha onData={handleDataCaptcha}/>
 
-        <button className="button is-medium is-warning is-light" type="submit" disabled={!isCaptchaSuccessful}>Connexion</button>
+        <button 
+        className="button is-medium is-warning is-light" 
+        type="submit"         
+        disabled={!isCaptchaSuccessful}>Connexion
+        </button>
 
       </form>
 
