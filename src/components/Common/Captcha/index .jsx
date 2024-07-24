@@ -1,6 +1,6 @@
 import React from 'react';
 import ReCAPTCHA from "react-google-recaptcha"; 
-import { useEffect, useState, useContext, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 function Captcha({ onData }) {
   const [isCaptchaSuccessful, setIsCaptchaSuccess] = React.useState(false);
@@ -17,8 +17,7 @@ function Captcha({ onData }) {
   useEffect(() => {
     setIsCaptchaSuccess(true);}, [recaptcha]);
 
-  return (   
-
+  return (
     <ReCAPTCHA
       className='recaptcha'
       ref={recaptcha}
