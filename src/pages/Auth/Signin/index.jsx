@@ -2,37 +2,42 @@
 import './index.css';
 
 import React from 'react';
-import ReCAPTCHA from "react-google-recaptcha"; 
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext} from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { UserContext } from '../../../context/userContext';
+import Captcha from '../../../components/Common/Captcha/index ';
 import checkAdminRole from '../../../services/auth/checkAdmin';
 import checkConnected from '../../../services/auth/checkConnected';
 
 function Account() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isCaptchaSuccessful, setIsCaptchaSuccess] = React.useState(false)
+  const [captchaData, setCaptchaData] = useState('');
   const { isAdmin, setIsAdmin } = useContext(UserContext);
   const { isConnected, setIsConnected } = useContext(UserContext);
+  
   const navigate = useNavigate();
   const location = useLocation();
+  
+  const { isCaptchaSuccessful, recaptchaValue } = captchaData;
 
   const postAuth = async () => {
-    try {
+      try {
       const apiUrl = import.meta.env.VITE_API_URL;
       const response = await fetch(`${apiUrl}/auth/signin`, {
         method: 'post',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password, recaptchaValue}),
       });
       const data = await response.json();
+            
       if (!response.ok) {
         return { error: data.error };
       }
+
       localStorage.setItem('authApiToken', data.token);
       setIsAdmin(checkAdminRole());
       setIsConnected(checkConnected());
@@ -42,7 +47,7 @@ function Account() {
     }
   };
 
-  useEffect(() => {
+  useEffect(() => {    
     const token = localStorage.getItem('authApiToken');
     if (token) {
       navigate('/', { state: { from: location }, replace: true });
@@ -57,14 +62,14 @@ function Account() {
     setPassword(event.target.value);
   };
 
-  
-  function onChange(value) {
-    setIsCaptchaSuccess(true)
-  }
-
+  const handleDataCaptcha = (data) => {
+    setCaptchaData(data); 
+  };
+ 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const result = await postAuth();
+    console.log(result)
     if (result.redirectTo) {
       toast.success('Connexion réussie');
       navigate(result.redirectTo, { state: { from: location }, replace: true });
@@ -104,14 +109,13 @@ function Account() {
           required
         />
 
-        <ReCAPTCHA
-          className='recaptcha'
-          sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
-          size='normal'
-          onChange={onChange}                    
-        />
+        <Captcha onData={handleDataCaptcha}/>
 
-        <button className="button is-medium is-warning is-light" type="submit" disabled={!isCaptchaSuccessful}>Connexion</button>
+        <button 
+        className="button is-medium is-warning is-light" 
+        type="submit"         
+        disabled={!isCaptchaSuccessful}>Connexion
+        </button>
 
       </form>
 
