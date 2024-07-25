@@ -1,14 +1,15 @@
 /* eslint-disable no-console */
 import './index.css';
 import React from 'react';
-import ReCAPTCHA from "react-google-recaptcha"; 
 import { useState } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import { toast } from 'react-toastify';
 import fetchData from '../../services/api/call.api';
+import Captcha from '../../components/Common/Captcha/index ';
 
 function ContactForm() {
-  const [isCaptchaSuccessful, setIsCaptchaSuccess] = React.useState(false)
+  const [captchaData, setCaptchaData] = useState('');
+  const { isCaptchaSuccessful, recaptchaValue } = captchaData;
 
   const token = localStorage.getItem('authApiToken');
   let email = '';
@@ -36,9 +37,10 @@ function ContactForm() {
     e.preventDefault();
 
     try {
-      const response = await fetchData('POST', 'contact', formData);
+      const response = await fetchData('POST', 'contact', formData, false, recaptchaValue);
       if (response === null || response.error) {
         // Affichez la modal d'erreur en cas d'échec de l'envoi
+        throw new Error('Une erreur s\'est produite !');
         return;
       }
 
@@ -51,12 +53,12 @@ function ContactForm() {
         message: '',
       });
     } catch (error) {
-      console.error(error);
+      console.error(error.message);
     }
   };
 
-  function onChange(value) {
-    setIsCaptchaSuccess(true)
+  const handleDataCaptcha = (data) => {
+    setCaptchaData(data);     
   };
 
   return (
@@ -97,14 +99,14 @@ function ContactForm() {
         </div>
 
         <div className="form_div submit">
-        <ReCAPTCHA
-          className='recaptcha contact'
-          sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
-          size='compact'
-          onChange={onChange}                    
-        />
-        
-        <button className="button is-warning is-light" type="submit" disabled={!isCaptchaSuccessful}>Envoyer</button>
+
+        <Captcha onData={handleDataCaptcha}/>
+
+        <button className="button is-warning is-light" 
+        type="submit" 
+        disabled={!isCaptchaSuccessful}>Envoyer
+        </button>
+
         </div>
       </form>
     </>
