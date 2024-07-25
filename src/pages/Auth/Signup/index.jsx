@@ -1,12 +1,13 @@
-import React from 'react';
-import ReCAPTCHA from "react-google-recaptcha"; 
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import fetchData from '../../../services/api/call.api';
+import Captcha from '../../../components/Common/Captcha/index '; 
 
 function Singup() {
-  const [isCaptchaSuccessful, setIsCaptchaSuccess] = React.useState(false)
+  const [captchaData, setCaptchaData] = useState('');
+  const { isCaptchaSuccessful, recaptchaValue } = captchaData;
+ 
 
   const [formUserData, setFormUserData] = useState({
     email: '',
@@ -40,13 +41,13 @@ function Singup() {
     const { name, value } = event.target;
     setFormUserData({ ...formUserData, [name]: value });
   };
-
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     // const notify = () => toast('Wow so easy!');
     try {
-      const response = await fetchData('POST', 'auth/signup', formUserData);
+      const response = await fetchData('POST', 'auth/signup', formUserData, false, recaptchaValue);
       if (response === null || response.error) {
         throw new Error('Une erreur s\'est produite !');
       }
@@ -61,8 +62,8 @@ function Singup() {
     }
   };
 
-  function onChange(value) {
-    setIsCaptchaSuccess(true)
+  const handleDataCaptcha = (data) => {
+    setCaptchaData(data);     
   };
 
   return (
@@ -144,14 +145,13 @@ function Singup() {
           </label>
         </div>
 
-        <ReCAPTCHA
-          className='recaptcha signup'
-          sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
-          size='compact'
-          onChange={onChange}                    
-        />
+        <Captcha onData={handleDataCaptcha}/>
 
-        <button className="button is-warning is-light" type="submit" disabled={!isCaptchaSuccessful}>Envoyer</button>
+        <button 
+        className="button is-warning is-light" 
+        type="submit" 
+        disabled={!isCaptchaSuccessful}>Envoyer
+        </button>
 
       </form>
     </>
