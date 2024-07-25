@@ -69,7 +69,7 @@ function Account() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const result = await postAuth();
-    console.log(result)
+    
     if (result.redirectTo) {
       toast.success('Connexion réussie');
       navigate(result.redirectTo, { state: { from: location }, replace: true });

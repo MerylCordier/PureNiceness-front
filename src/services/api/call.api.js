@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify';
 
 /* eslint-disable no-param-reassign */
-const fetchData = async (method, endpoint, requestData = null, needToken = false) => {
+const fetchData = async (method, endpoint, requestData = null, needToken = false, needCaptcha = null) => {
   const apiUrl = import.meta.env.VITE_API_URL;
   try {
     const url = `${apiUrl}/${endpoint}`;
@@ -29,15 +29,29 @@ const fetchData = async (method, endpoint, requestData = null, needToken = false
 
     if (method !== 'GET' && method !== 'DELETE') {
       const formData = new FormData();
-      Object.keys(requestData).forEach((key) => {
-        const value = requestData[key];
-        formData.append(key, value);
-      });
-      if (requestData === null) {
-        options.body = null;
-      } else {
-        options.body = formData instanceof FormData ? formData : JSON.stringify(formData);
+
+      // Ajoutez requestData au formData
+      if (requestData) {
+        Object.keys(requestData).forEach((key) => {
+          const value = requestData[key];
+          formData.append(key, value);
+        });
       }
+
+      // Ajoutez le captcha au formData
+      if (needCaptcha) {
+        const recaptchaValue = needCaptcha;
+        formData.append('recaptchaValue', recaptchaValue);
+      }
+
+      options.body = formData;
+
+      
+      // if (requestData === null) {
+      //   options.body = null;
+      // } else {
+      //   options.body = formData instanceof FormData ? formData : JSON.stringify(formData);
+      // }
     }
 
     const response = await fetch(url, options);
