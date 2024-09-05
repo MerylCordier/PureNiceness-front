@@ -1,13 +1,18 @@
-import { useState } from 'react';
+import './index.css';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import fetchData from '../../../services/api/call.api';
 import Captcha from '../../../components/Common/Captcha/index '; 
+import EmailValidation from './EmailValidation';
 
 function Singup() {
+ 
   const [captchaData, setCaptchaData] = useState('');
   const { isCaptchaSuccessful, recaptchaValue } = captchaData;
- 
+  const [isModalActive, setIsModalActive] = useState(false);
+  
+  
 
   const [formUserData, setFormUserData] = useState({
     email: '',
@@ -15,8 +20,6 @@ function Singup() {
     passwordConfirm: '',
     lastname: '',
     firstname: '',
-    // birthdate: '',
-    // address: '',
     zipcode: '',
     city: '',
     country: '',
@@ -28,8 +31,6 @@ function Singup() {
     passwordConfirm: '',
     lastname: '',
     firstname: '',
-    // birthdate: '',
-    // address: '',
     zipcode: '',
     city: '',
     country: '',
@@ -45,12 +46,21 @@ function Singup() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // const notify = () => toast('Wow so easy!');
     try {
       const response = await fetchData('POST', 'auth/signup', formUserData, false, recaptchaValue);
       if (response === null || response.error) {
         throw new Error('Une erreur s\'est produite !');
       }
+
+      //ouverture de la modale pour validation du lien envoyé par mail
+        // prévoir setTimeout pour changement modal en erreur
+
+      //reception de la reponse du get /api/auth/signup/validate/uuid
+      
+        
+       
+      // Changement modal en succés quand retour valid et redirexion vers login
+      //si reponse ok, redirection vers /signin
       toast.success('Inscription réussie !');
       setFormUserData({ ...initialFormUserData });
 
@@ -94,22 +104,6 @@ function Singup() {
           </label>
         </div>
 
-        {/* <div className="form_div">
-          <label className="form_label" htmlFor="birthdate">
-            <p className="label_name">Date de naissance</p>
-            <input className="contact_input"  
-            type="month" or type="date" 
-            id="birthdate" name="birthdate" value={formUserData.birthdate} onChange={handleChange} />
-          </label>
-        </div> 
-
-        <div className="form_div">
-          <label className="form_label" htmlFor="address">
-            <p className="label_name">Adresse</p>
-            <input className="contact_input" type="text" id="address" name="address" placeholder="N° et rue" value={formUserData.address} onChange={handleChange} />
-          </label>
-        </div> */}
-
         <div className="form_div">
           <label className="form_label" htmlFor="zipcode">
             <p className="label_name">Code postal</p>
@@ -150,10 +144,25 @@ function Singup() {
         <button 
         className="button is-warning is-light" 
         type="submit" 
-        disabled={!isCaptchaSuccessful}>Envoyer
+        disabled={!isCaptchaSuccessful}
+        onClick={() => setIsModalActive(true)}>Envoyer
         </button>
 
+        <div className={`modal ${isModalActive ? 'is-active' : ''}`}> 
+          <div className="modal-background"></div>
+            <div className="modal-content">
+            veuillez cliquer sur le lien envoyé à l'adresse: {formUserData.email}  pour valider votre inscription.
+            </div>        
+            <button 
+            className="modal-close is-large" 
+            aria-label="close" 
+            onClick={()=>setIsModalActive(false)}>              
+            </button>
+          </div>       
+
       </form>
+      
+     
     </>
   );
 }
