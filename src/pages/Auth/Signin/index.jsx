@@ -18,11 +18,11 @@ function Account() {
   const [captchaData, setCaptchaData] = useState('');
   const { isAdmin, setIsAdmin } = useContext(UserContext);
   const { isConnected, setIsConnected } = useContext(UserContext);
+  const { isCaptchaSuccessful, recaptchaValue } = captchaData;
   
   const navigate = useNavigate();
   const location = useLocation();
   
-  const { isCaptchaSuccessful, recaptchaValue } = captchaData;
 
   const postAuth = async () => {
       try {
@@ -54,6 +54,14 @@ function Account() {
     }
   }, []);
 
+  useEffect(() => {
+    // Vérifie si l'état "fromValidation" est présent
+    if (location.state?.fromValidation) {
+      // Affiche le toast
+      toast.success(<div>Email validé :<br /><br />Bienvenue !</div>);
+    }
+  }, [location]);
+
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
@@ -80,12 +88,19 @@ function Account() {
 
   return (
     <>
+  
       <div className="header-connexion">
         <Link to="/" className="return-link">
           <FontAwesomeIcon icon={faArrowLeft} />
         </Link>
         <h1>Connexion</h1>
       </div>
+      
+        {location.state?.fromValidation && (
+          <div className="header-connexion__afterValidation">
+            <h2>Votre compte est validé! Place à votre première connexion:</h2>
+          </div>
+        )}
 
       <form className="submit-form" onSubmit={handleSubmit}>
 

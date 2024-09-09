@@ -1,10 +1,9 @@
 import './index.css';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import fetchData from '../../../services/api/call.api';
 import Captcha from '../../../components/Common/Captcha/index '; 
-import EmailValidation from './EmailValidation';
 
 function Singup() {
  
@@ -12,8 +11,6 @@ function Singup() {
   const { isCaptchaSuccessful, recaptchaValue } = captchaData;
   const [isModalActive, setIsModalActive] = useState(false);
   
-  
-
   const [formUserData, setFormUserData] = useState({
     email: '',
     password: '',
@@ -54,12 +51,8 @@ function Singup() {
 
       //ouverture de la modale pour validation du lien envoyé par mail
         // prévoir setTimeout pour changement modal en erreur
-
       //reception de la reponse du get /api/auth/signup/validate/uuid
-      
-        
-       
-      // Changement modal en succés quand retour valid et redirexion vers login
+        // Changement modal en succés quand retour valid et redirexion vers login
       //si reponse ok, redirection vers /signin
       toast.success('Inscription réussie !');
       setFormUserData({ ...initialFormUserData });
@@ -151,7 +144,8 @@ function Singup() {
         <div className={`modal ${isModalActive ? 'is-active' : ''}`}> 
           <div className="modal-background"></div>
             <div className="modal-content">
-            veuillez cliquer sur le lien envoyé à l'adresse: {formUserData.email}  pour valider votre inscription.
+            Un lien de validation vous a été envoyé à l'adresse:<br />
+            <p className='email-validation'>{formUserData.email}</p>
             </div>        
             <button 
             className="modal-close is-large" 
