@@ -22,12 +22,14 @@ import {
 import Contact from '../pages/Contact';
 import Account from '../pages/Account';
 import Signup from '../pages/Auth/Signup';
+import EmailValidation from '../pages/Auth/Signup/EmailValidation';
 import Labels, { musicDataLoader } from '../pages/Labels';
 import Events from '../pages/Events';
 import Medias from '../pages/Medias';
 import Signin from '../pages/Auth/Signin';
 import Legals from '../pages/Legals';
 import ErrorPage from '../pages/error';
+
 
 // Création du routeur
 const router = createBrowserRouter([
@@ -40,7 +42,8 @@ const router = createBrowserRouter([
       { path: '/contact', element: <Contact /> },
       { path: '/account', element: <Account /> },
       { path: '/signin', element: <Signin /> },
-      { path: '/signup', element: <Signup /> },
+      { path: '/signup', element: <Signup />, },
+      { path: '/signup/validate/:uuid', element: <EmailValidation />},     
       { path: '/events', element: <Events /> },
       { path: '/medias', element: <Medias /> },
       { path: '/legals', element: <Legals />},
