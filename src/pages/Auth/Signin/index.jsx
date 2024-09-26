@@ -59,11 +59,12 @@ function Account() {
     if (location.state?.fromValidation) {
       // Affiche le toast
       toast.success(<div>Email validé :<br /><br />Bienvenue !</div>);
+      setEmail(location.state.email);
     }
   }, [location]);
 
   const handleEmailChange = (event) => {
-    setEmail(event.target.value);
+   setEmail(event.target.value);
   };
 
   const handlePasswordChange = (event) => {
@@ -108,8 +109,8 @@ function Account() {
           className="input is-warning"
           type="email"
           name="email"
-          placeholder="Email"
-          value={email}
+          placeholder={(location.state?.fromValidation) ? location.state.email : 'Email'}
+          value={(location.state?.fromValidation) ? location.state.email : email}
           onChange={handleEmailChange}
           required
         />
