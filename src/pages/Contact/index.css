@@ -7,7 +7,7 @@
   max-width: 1440px;
 }
 
-button.is-warning.is-light{
+button.is-warning.is-light {
   margin: 10px 0 0 0;
 }
 
@@ -17,14 +17,6 @@ button.is-warning.is-light{
 
 .form_div {
   margin-bottom: 20px;
-}
-
-.form_label {
-  display: block;
-  font-weight: bold;
-  font-size: 1.2rem;
-  color: #af8928;
-  margin: 0.5rem 0;
 }
 
 .contact_input,
@@ -40,8 +32,3 @@ button.is-warning.is-light{
 .contact_text-area {
   height: 100px;
 }
-
-
-
-
-
