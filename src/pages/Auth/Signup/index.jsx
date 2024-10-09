@@ -184,6 +184,33 @@ function Singup() {
               value={formUserData.password}
               onChange={handleChange}
             />
+            <div className="checkboxes">
+              <label className="checkbox-password">
+                <input
+                  type="checkbox"
+                  checked={formUserData.password.match(/[A-Z]/) ? true : false}
+                  // disabled
+                  //'ils réagissent les 3 en même temps'; toogle quand condition réunit one by one **
+                />
+                <p> Une Majuscule </p>
+              </label>
+
+              <label className="checkbox-password">
+                <input
+                  type="checkbox"
+                  checked={formUserData.password.match(/[0-9]/) ? true : false}
+                />
+                <p> Un chiffre </p>
+              </label>
+
+              <label className="checkbox-password">
+                <input
+                  type="checkbox"
+                  checked={formUserData.password.length >= 12 ? true : false}
+                />
+                <p>12 caractères</p>
+              </label>
+            </div>
           </label>
         </div>
 
@@ -201,16 +228,21 @@ function Singup() {
             />
           </label>
         </div>
-
-        <Captcha onData={handleDataCaptcha} />
-
-        <button
-          className="button is-warning is-light"
-          type="submit"
-          disabled={!isCaptchaSuccessful}
-        >
-          Envoyer
-        </button>
+        <div className="form_div">
+          <label className="form_label-submit_confirm" htmlFor="submitConfirm">
+            <Captcha onData={handleDataCaptcha} />
+            <input type="radio" id="acceptedTerms" name="terms" value="yes" />
+            J'ai lu et j'accepte les conditions d'utilisation du site et leur
+            politique de confidentialité
+            <button
+              className="button is-warning is-light"
+              type="submit"
+              disabled={!isCaptchaSuccessful}
+            >
+              Envoyer
+            </button>
+          </label>
+        </div>
       </form>
       <div className={`modal ${isModalActive ? "is-active" : ""}`}>
         <div className="modal-background"></div>
