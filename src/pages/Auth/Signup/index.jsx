@@ -6,7 +6,7 @@ import { faToggleOn, faToggleOff } from "@fortawesome/free-solid-svg-icons";
 import fetchData from "../../../services/api/call.api";
 import Captcha from "../../../components/Common/Captcha/index ";
 
-function Singup() {
+function Signup() {
   const [captchaData, setCaptchaData] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const { isCaptchaSuccessful, recaptchaValue } = captchaData;
@@ -192,9 +192,7 @@ function Singup() {
               onChange={handleChange}
             />
           </label>
-          {/* </div> */}
 
-          {/* <div className="form_div"> */}
           <div className="checkboxes">
             <label className="checkbox-password">
               <input
@@ -281,4 +279,4 @@ function Singup() {
   );
 }
 
-export default Singup;
+export default Signup;
