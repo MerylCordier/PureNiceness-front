@@ -1,6 +1,8 @@
 import "./index.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faToggleOn, faToggleOff } from "@fortawesome/free-solid-svg-icons";
 import fetchData from "../../../services/api/call.api";
 import Captcha from "../../../components/Common/Captcha/index ";
 
@@ -8,6 +10,7 @@ function Singup() {
   const [captchaData, setCaptchaData] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const { isCaptchaSuccessful, recaptchaValue } = captchaData;
+  const [isToggled, setIsToggled] = useState(false);
   const [isModalActive, setIsModalActive] = useState(false);
 
   const [formUserData, setFormUserData] = useState({
@@ -76,6 +79,10 @@ function Singup() {
 
   const handleDataCaptcha = (data) => {
     setCaptchaData(data);
+  };
+
+  const handleToggle = () => {
+    setIsToggled(!isToggled);
   };
 
   return (
@@ -184,34 +191,35 @@ function Singup() {
               value={formUserData.password}
               onChange={handleChange}
             />
-            <div className="checkboxes">
-              <label className="checkbox-password">
-                <input
-                  type="checkbox"
-                  checked={formUserData.password.match(/[A-Z]/) ? true : false}
-                  // disabled
-                  //'ils réagissent les 3 en même temps'; toogle quand condition réunit one by one **
-                />
-                <p> Une Majuscule </p>
-              </label>
-
-              <label className="checkbox-password">
-                <input
-                  type="checkbox"
-                  checked={formUserData.password.match(/[0-9]/) ? true : false}
-                />
-                <p> Un chiffre </p>
-              </label>
-
-              <label className="checkbox-password">
-                <input
-                  type="checkbox"
-                  checked={formUserData.password.length >= 12 ? true : false}
-                />
-                <p>12 caractères</p>
-              </label>
-            </div>
           </label>
+          {/* </div> */}
+
+          {/* <div className="form_div"> */}
+          <div className="checkboxes">
+            <label className="checkbox-password">
+              <input
+                type="checkbox"
+                checked={formUserData.password.match(/[A-Z]/) ? true : false}
+              />
+              <p> Une Majuscule </p>
+            </label>
+
+            <label className="checkbox-password">
+              <input
+                type="checkbox"
+                checked={formUserData.password.match(/[0-9]/) ? true : false}
+              />
+              <p> Un chiffre </p>
+            </label>
+
+            <label className="checkbox-password">
+              <input
+                type="checkbox"
+                checked={formUserData.password.length >= 12 ? true : false}
+              />
+              <p>12 caractères</p>
+            </label>
+          </div>
         </div>
 
         <div className="form_div">
@@ -228,20 +236,31 @@ function Singup() {
             />
           </label>
         </div>
-        <div className="form_div">
-          <label className="form_label-submit_confirm" htmlFor="submitConfirm">
-            <Captcha onData={handleDataCaptcha} />
-            <input type="radio" id="acceptedTerms" name="terms" value="yes" />
-            J'ai lu et j'accepte les conditions d'utilisation du site et leur
-            politique de confidentialité
-            <button
-              className="button is-warning is-light"
-              type="submit"
-              disabled={!isCaptchaSuccessful}
-            >
-              Envoyer
+
+        <div className="form_label-submit_confirm" htmlFor="submitConfirm">
+          <div className="terms_div">
+            <button className="button_toggle" onClick={handleToggle}>
+              {isToggled ? (
+                <FontAwesomeIcon icon={faToggleOn} />
+              ) : (
+                <FontAwesomeIcon icon={faToggleOff} />
+              )}
+              <p className="button_toggle-text">
+                J'ai lu et j'accepte les conditions d'utilisation et la
+                politique de confidentialité du site
+              </p>
             </button>
-          </label>
+          </div>
+
+          <Captcha onData={handleDataCaptcha} />
+
+          <button
+            className="button is-warning is-light"
+            type="submit"
+            disabled={!isToggled || !isCaptchaSuccessful}
+          >
+            Envoyer
+          </button>
         </div>
       </form>
       <div className={`modal ${isModalActive ? "is-active" : ""}`}>

@@ -66,10 +66,37 @@
 .form_label-submit_confirm {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 0.8em;
+  margin: 10px 0 10px 0;
 }
+
+.button_toggle {
+  display: flex;
+  background-color: #313131;
+  max-width: 95%;
+  margin-left: -3px;
+}
+
+.button_toggle-text {
+  color: rgb(157, 155, 155);
+  text-align: left;
+  margin-left: 10px;
+  font-size: medium;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+.fa-toggle-on {
+  color: rgb(60, 201, 187) !important;
+}
+.button_toggle .svg-inline--fa {
+  color: var(--secondary-color);
+  height: 2em;
+  vertical-align: middle;
+}
+
 /* Modal for emailling */
 
 .modal {
@@ -121,13 +148,25 @@
     max-width: 800px;
     display: flex;
     flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
     gap: 0 1rem;
     padding: 0.7rem;
   }
 
   .form__signup-container .form_div {
-    flex-basis: calc(50% - 10px);
+    width: 80%;
     margin: 0;
+  }
+
+  .form_label-submit_confirm {
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  .terms_div {
+    max-width: 80%;
   }
 
   .modal.is-active {
@@ -151,6 +190,22 @@
     justify-content: space-evenly;
     align-items: center;
   }
+
+  .form__signup-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: start;
+  }
+  .form__signup-container .form_div {
+    margin: 0;
+    width: 43%;
+  }
+  .terms_div {
+    max-width: 40%;
+  }
+
   .form_div.submit .button.is-warning.is-light {
     margin-right: 30%;
   }
