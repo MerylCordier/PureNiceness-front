@@ -54,7 +54,7 @@
 .checkbox-password input:checked::after {
   content: "✔";
   font-size: 1.4em;
-  color: rgb(60, 201, 187);
+  color: #009e55;
   background: #313131;
 }
 
@@ -89,7 +89,7 @@
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 .fa-toggle-on {
-  color: rgb(60, 201, 187) !important;
+  color: #009e55 !important;
 }
 .button_toggle .svg-inline--fa {
   color: var(--secondary-color);

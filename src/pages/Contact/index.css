@@ -16,7 +16,14 @@ button.is-warning.is-light {
 }
 
 .form_div {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
+}
+
+.form_div-submit {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .contact_input,

@@ -31,7 +31,6 @@ h2 {
   padding: 0 0.5rem;
 }
 
-
 .links-container {
   display: flex;
   flex-wrap: wrap;
@@ -45,18 +44,18 @@ h2 {
   text-decoration: underline;
 }
 
-.link-forgot{
+.link-forgot {
   color: var(--secondary-color);
   font-size: 1.1rem;
   font-weight: bold;
 }
 
-.link-forgot:hover{
+.link-forgot:hover {
   color: var(--secondary-color);
-  opacity:0.7;
+  opacity: 0.7;
 }
 
-.links-container .link:hover{
+.links-container .link:hover {
   color: var(--secondary-color);
 }
 
@@ -76,11 +75,18 @@ h2 {
   font-size: 2rem;
 }
 
-.button.is-medium.is-warning.is-light{
-padding: 15px;
+.button.is-medium.is-warning.is-light {
+  padding: 15px;
 }
 
 @media screen and (min-width: 426px) {
+  .captcha-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 90%;
+  }
+
   .return-link {
     display: none;
   }
