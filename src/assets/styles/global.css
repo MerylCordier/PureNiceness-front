@@ -15,12 +15,12 @@
   box-sizing: border-box;
 }
 
-.Toastify__toast-container{
-  padding-top:3rem;
+.Toastify__toast-container {
+  padding-top: 3rem;
 }
 
-.Toastify__close-button{
-  width:fit-content;
+.Toastify__close-button {
+  width: fit-content;
 }
 
 .is-selected {
@@ -45,16 +45,18 @@ main a {
 .input {
   position: static !important;
 }
-::-webkit-input-placeholder{
+::-webkit-input-placeholder {
   opacity: 1 !important;
-  color:var(--background-color) !important;
+  color: var(--background-color) !important;
 }
 
-.recaptcha {
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  }
+.form_label {
+  display: block;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #af8928;
+  margin: 0.5rem 0;
+}
 
 /* barre de défilement*/
 /* body::-webkit-scrollbar {

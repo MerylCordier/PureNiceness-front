@@ -17,6 +17,14 @@ h1 {
   font-weight: 600;
 }
 
+h2 {
+  font-size: 1.8rem;
+  font-style: oblique;
+  margin: 1rem 0;
+  color: var(--secondary-color);
+  padding: 3px;
+}
+
 .input {
   width: 90%;
   max-width: 600px;
