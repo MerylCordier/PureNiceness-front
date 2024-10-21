@@ -52,8 +52,11 @@
 }
 
 .checkbox-password input:checked::after {
+  position: absolute;
+  top: -5px;
+  left: 0;
   content: "✔";
-  font-size: 1.4em;
+  font-size: 1.5em;
   color: #009e55;
   background: #313131;
 }
