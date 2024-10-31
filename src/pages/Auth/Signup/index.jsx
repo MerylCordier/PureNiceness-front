@@ -81,7 +81,8 @@ function Signup() {
     setCaptchaData(data);
   };
 
-  const handleToggle = () => {
+  const handleToggle = (event) => {
+    event.preventDefault();
     setIsToggled(!isToggled);
   };
 
