@@ -29,7 +29,6 @@
 
 .checkbox-password p {
   color: rgb(157, 155, 155);
-  z-index: 1;
   text-align: left;
   width: 100%;
   font-size: 12px;
@@ -102,24 +101,16 @@
 
 /* Modal for emailling */
 
-.modal {
-  display: none;
-}
-
-.modal.is-active {
-  display: flex;
-  position: fixed;
-  top: 3rem;
-  justify-self: center;
+.mailing_modal {
+  background-color: var(--secondary-color);
+  align-content: center;
   width: calc(98% - 16px);
-  height: calc(92% - var(--navbar-height));
 }
 
-.modal-content {
+.mailing_modal-content {
   color: black;
-  font-size: 22px;
-  top: 0 !important;
-  left: 0 !important;
+  font-size: 24px;
+  align-self: center;
   transform: none !important;
   padding: 20px !important;
 }
@@ -127,13 +118,9 @@
 .email-validation {
   color: #313131;
   text-shadow: none;
-  font-size: 20px;
+  font-size: 26px;
   text-align: center;
   padding-top: 25px;
-}
-
-.modal-background {
-  background-color: var(--secondary-color);
 }
 
 .modal-close {
@@ -172,7 +159,7 @@
     max-width: 80%;
   }
 
-  .modal.is-active {
+  .mailing_modal {
     position: absolute;
     top: 6rem;
     height: 100%;

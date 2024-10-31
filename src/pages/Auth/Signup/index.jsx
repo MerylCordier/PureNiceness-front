@@ -261,20 +261,21 @@ function Signup() {
           </button>
         </div>
       </form>
-      <div className={`modal ${isModalActive ? "is-active" : ""}`}>
-        <div className="modal-background"></div>
-        <div className="modal-content">
-          Inscription réussie! Un lien de validation vous a été envoyé à
-          l'adresse:
-          <br />
-          <p className="email-validation">{userEmail}</p>
+      {isModalActive && (
+        <div className="mailing_modal">
+          <div className="mailing_modal-content">
+            Inscription réussie! Un lien de validation vous a été envoyé à
+            l'adresse:
+            <br />
+            <p className="email-validation">{userEmail}</p>
+          </div>
+          <button
+            className="modal-close is-large"
+            aria-label="close"
+            onClick={() => setIsModalActive(false)}
+          ></button>
         </div>
-        <button
-          className="modal-close is-large"
-          aria-label="close"
-          onClick={() => setIsModalActive(false)}
-        ></button>
-      </div>
+      )}
     </>
   );
 }
