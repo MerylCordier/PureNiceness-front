@@ -2,36 +2,60 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <meta name="Content-Language" content="fr" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pureniceness - Production de Musique Reggae et Dub - KingHIFI</title>
 
+    <!-- Description pour SEO -->
+    <meta
+      name="description"
+      content="Découvrez la production musicale reggae et dub de Pureniceness, des sons originaux et des mixes uniques pour les amateurs de reggae roots et dub."
+    />
+
+    <!-- Auteur -->
     <meta
       name="author"
-      content="Cedric.J Kevin.S Mathieu.S Meryl.C For KingHIFI Pureniceness Mentalstamina"
+      content="Cedric.J Kevin.S Mathieu.S Meryl.C For KingHIFI, Pureniceness, Mentalstamina"
     />
-    <title>Pureniceness</title>
 
+    <!-- Open Graph pour le partage sur les réseaux sociaux -->
+    <meta property="og:title" content="Pureniceness - Musique Reggae Dub" />
     <meta
-      name="Description"
+      property="og:description"
       content="Ce site met à votre disposition notre production de musique de style reggae dub."
     />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://pureniceness.netlify.app" />
     <meta
-      name="Keywords"
-      content="musique, audio, lecteur de musique, reggae, dub, son, vinyle, digital,King HIFI, Pureniceness,pure niceness, Mental stamina, records."
+      property="og:image"
+      content="https://pureniceness.netlify.app/images/banner_khf.jpg"
     />
-    <meta name="Identifier-Url" content="https://pureniceness.netlify.app" />
-    <meta name="Revisit-After" content="10 days" />
-    <meta name="Robots" content="all" />
-    <meta name="Rating" content="14 years" />
-    <meta name="Distribution" content="global" />
-    <meta name="Category" content="musics" />
+    <meta property="og:site_name" content="Pureniceness" />
+    <meta
+      property="og:image:alt"
+      content="Pureniceness - Musique Reggae et Dub"
+    />
+    <meta property="og:locale" content="fr_FR" />
 
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "MusicGroup",
+        "name": "Pureniceness",
+        "url": "https://pureniceness.netlify.app",
+
+        "description": "Production de musique reggae et dub pour les amateurs de sons roots et dub.",
+        "image": "https://pureniceness.netlify.app/images/banner_khf.jpg"
+      }
+    </script>
+
+    <!-- Lien vers les styles et les scripts -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
     />
-    <link rel="icon" href="favicon.png" type="image/png" />
+    <link rel="icon" href="/dist/assets/favicon.png" type="image/png" />
   </head>
+
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
