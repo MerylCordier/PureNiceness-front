@@ -2,7 +2,9 @@
 function EventsDetails({ eventsDetails }) {
   // Le backend renvoie { upcoming: [], past: { label: string, events: [] } }
   const upcomingEvents = eventsDetails.upcoming || [];
-  const pastEvents = eventsDetails.past?.events || [];
+  const pastEvents = (eventsDetails.past?.events || []).sort(
+    (a, b) => new Date(b.starting_date) - new Date(a.starting_date),
+  );
 
   const renderEvent = (event, index, isPast = false) => (
     <div
@@ -12,13 +14,9 @@ function EventsDetails({ eventsDetails }) {
       <div className="img_container">
         <img className="event_image" src={event.url_image} alt={event.name} />
       </div>
-      <div className="text_containeur global_description">
+      <div className="text_containeur">
         <h2 className="event_h2">{event.name}</h2>
-        <p className="event_type global_description">{event.type}</p>
-        <p className="event_description global_description">
-          {event.description}
-        </p>
-        <p className="event_date_debut global_description">
+        <p className="event_date_debut">
           Début:{" "}
           {new Date(event.starting_date).toLocaleString("fr-FR", {
             weekday: "long",
@@ -29,7 +27,7 @@ function EventsDetails({ eventsDetails }) {
             minute: "numeric",
           })}
         </p>
-        <p className="event_date_fin global_description">
+        <p className="event_date_fin">
           Fin:{" "}
           {new Date(event.ending_date).toLocaleString("fr-FR", {
             weekday: "long",
@@ -40,9 +38,10 @@ function EventsDetails({ eventsDetails }) {
             minute: "numeric",
           })}
         </p>
-        <p className="event_ville global_description">{event.city}</p>
-        <p className="event_pays global_description">{event.country}</p>
-        <p className="event_lieu global_description">{event.location}</p>
+        <p className="event_description">{event.description}</p>
+        <p className="event_ville">{event.city}</p>
+        <p className="event_pays">{event.country}</p>
+        <p className="event_lieu">{event.location}</p>
       </div>
     </div>
   );

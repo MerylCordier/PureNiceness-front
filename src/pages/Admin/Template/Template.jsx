@@ -1,22 +1,20 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable react/prop-types */
-import { useState, useEffect } from 'react';
-import fetchData from '../../../services/api/call.api';
-import AdminTable from '../../../components/Common/Table/AdminTable';
-import AdminSearch from '../../../components/Common/Search/AdminSearch';
-import AdminForm from '../../../components/Common/Forms/AdminForm';
-import CrudModal from '../../../components/Common/Modal/CrudModal';
+import { useState, useEffect } from "react";
+import fetchData from "../../../services/api/call.api";
+import AdminTable from "../../../components/Common/Table/AdminTable";
+import AdminSearch from "../../../components/Common/Search/AdminSearch";
+import AdminForm from "../../../components/Common/Forms/AdminForm";
+import CrudModal from "../../../components/Common/Modal/CrudModal";
 
-function AdminTemplate({
-  route, title = 'Admin', optionsList,
-}) {
+function AdminTemplate({ route, title = "Admin", optionsList }) {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [searchColumn, setSearchColumn] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchColumn, setSearchColumn] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [modalTitle, setModalTitle] = useState('AJOUTER');
-  const [modalMode, setModalMode] = useState('create');
+  const [modalTitle, setModalTitle] = useState("AJOUTER");
+  const [modalMode, setModalMode] = useState("create");
   const [itemSelected, setItemSelected] = useState(null);
   const [optionsUpdate, setOptionsUpdate] = useState([]);
 
@@ -25,7 +23,10 @@ function AdminTemplate({
       if (!column) {
         return item.id.toString().toLowerCase().includes(search.toLowerCase());
       }
-      return item[column].toString().toLowerCase().includes(search.toLowerCase());
+      return item[column]
+        .toString()
+        .toLowerCase()
+        .includes(search.toLowerCase());
     });
     setSearchTerm(search);
     setSearchColumn(column);
@@ -33,7 +34,7 @@ function AdminTemplate({
   };
 
   const getAllData = async () => {
-    const dataList = await fetchData('GET', route, null, true);
+    const dataList = await fetchData("GET", route, null, true);
     setFilteredData(dataList);
     setData(dataList);
   };
@@ -44,7 +45,9 @@ function AdminTemplate({
   };
 
   const handleDataUpdate = (newData) => {
-    setData((prevData) => prevData.map((item) => (item.id === newData.id ? newData : item)));
+    setData((prevData) =>
+      prevData.map((item) => (item.id === newData.id ? newData : item)),
+    );
   };
 
   const handleDataDelete = (idToDelete) => {
@@ -57,8 +60,8 @@ function AdminTemplate({
     optionsList.forEach((option) => {
       delete option.src;
     });
-    setModalTitle('AJOUTER');
-    setModalMode('create');
+    setModalTitle("AJOUTER");
+    setModalMode("create");
     setIsModalVisible(true);
   };
 
@@ -66,11 +69,16 @@ function AdminTemplate({
     const optionForUpdate = optionsList.map((obj) => ({ ...obj }));
     Object.keys(item).forEach((key) => {
       optionsList.forEach((objetOptions, index) => {
-        if (objetOptions.id === key && objetOptions.type !== 'file') {
-          optionForUpdate[index].defaultValue = item[key];
+        if (objetOptions.id === key && objetOptions.type !== "file") {
+          // Convertir les dates "yyyy-MM-dd HH:mm" en format datetime-local "yyyy-MM-ddTHH:mm"
+          if (objetOptions.type === "datetime-local" && item[key]) {
+            optionForUpdate[index].defaultValue = item[key].replace(" ", "T");
+          } else {
+            optionForUpdate[index].defaultValue = item[key];
+          }
         }
-        if (objetOptions.type === 'file' || objetOptions.type === 'password') {
-          if (objetOptions.id === 'url_image') {
+        if (objetOptions.type === "file" || objetOptions.type === "password") {
+          if (objetOptions.id === "url_image") {
             optionForUpdate[index].src = item.url_image;
           }
           delete optionForUpdate[index].required;
@@ -79,8 +87,8 @@ function AdminTemplate({
     });
     setItemSelected(item);
     setOptionsUpdate(optionForUpdate);
-    setModalTitle('MODIFIER');
-    setModalMode('update');
+    setModalTitle("MODIFIER");
+    setModalMode("update");
     setIsModalVisible(true);
   };
 
@@ -114,9 +122,12 @@ function AdminTemplate({
         handleDataDelete={handleDataDelete}
         handleOpenUpdateModal={handleOpenUpdateModal}
       />
-      {isModalVisible
-        && (
-        <CrudModal handleClose={handleCloseModal} title={modalTitle} mode={modalMode}>
+      {isModalVisible && (
+        <CrudModal
+          handleClose={handleCloseModal}
+          title={modalTitle}
+          mode={modalMode}
+        >
           <AdminForm
             optionsList={optionsList}
             optionsUpdate={optionsUpdate}
@@ -128,7 +139,7 @@ function AdminTemplate({
             setItemSelected={setItemSelected}
           />
         </CrudModal>
-        )}
+      )}
     </>
   );
 }
